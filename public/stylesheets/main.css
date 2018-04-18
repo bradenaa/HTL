@@ -1,0 +1,87 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  height: 80vh;
+  width: 100vw;
+  border: 2px solid black;
+}
+
+/*==================*/
+/*==== slide #1 ====*/
+/*==================*/
+
+.row1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/son-vu-le-506104-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.row1 p {
+  font-size: 4.5rem;
+  text-align: center;
+  margin-right: 10%;
+  margin-left: 10%;
+
+}
+
+/*==================*/
+/*==== slide #2 ====*/
+/*==================*/
+
+.row2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
+}
+
+.top .heading {
+  font-size: 4.0em;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin: 1% 10%;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1% 3%;
+}
+
+.row2 img {
+  width: 50%;
+  height: auto;
+
+}
