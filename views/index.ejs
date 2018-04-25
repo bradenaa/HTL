@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117842271-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-117842271-1');
+    </script>
     <meta charset="utf-8">
 
     <title>Hashtag Language Landing Page</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
   </head>
   <body>
     <%# <nav>
@@ -21,8 +34,19 @@
 
       <%# First Slide %>
       <div class="row row1">
-          <p>Practice your second language with locals in Los Angeles!</p>
-          <a href="#">Let's Go!</a>
+        <div class="front_page_content">
+          <div class="row1_top">
+            <p>Practice your second language with locals in Los Angeles!</p>
+          </div>
+          <div class="row1_middle">
+            <p>Get FREE membership for a year if you sign up now!</p>
+          </div>
+          <div class="row1_bottom">
+            <button>
+              <a href="https://hashtaglanguage.typeform.com/to/n4QlYc">Join our waitlist</a>
+            </button>
+          </div>
+        </div>
       </div>
 
       <%# Second Slide %>
@@ -31,42 +55,160 @@
           <%# Top Content %>
           <div class="top">
             <div class="heading">
-              <p>Learning a new language is better with friends!</p>
+              <p>Make learning a new language a lifestyle.</p>
             </div>
           </div>
           <%# Bottom Content %>
           <div class="bottom">
             <div class="col col1">
-              <img src="../assets/fireworks.png" alt="">
+              <div class="MLW_col_top">
+                <img src="../assets/fireworks.png" alt="">
+              </div>
               <p class="line1">
-                Share an experience
+                Make it an experience
               </p>
               <p class="line2">
                 Learning a new language takes time, but you should enjoy the adevnture to fluency!
               </p>
             </div>
             <div class="col col2">
-              <img src="../assets/support.png" alt="">
+              <div class="MLW_col_top">
+                <img src="../assets/support.png" alt="">
+              </div>
               <p class="line1">
-                Gain confidence with community
+                Meet friends from around the world
               </p>
               <p class="line2">
-                Get connected online and offline with locals in our community that speak your target language!
+                Get connected online and offline with locals that speak your target language!
               </p>
             </div>
             <div class="col col3">
-              <img src="../assets/coffee-cup.png" alt="">
+              <div class="MLW_col_top">
+                <img src="../assets/coffee-cup.png" alt="">
+              </div>
               <p class="line1">
-                Learn naturally in-person
+                Learn how you would like to
               </p>
               <p class="line2">
-                Learn your second language by using it with fluent or native speakers over coffee, at a bar, or on a hike!
+                Learn your second language by using it with our community over coffee, at a bar, or on a hike!
               </p>
             </div>
           </div>
-
-
       </div>
+
+      <%# Third Slide %>
+
+      <div class="row row3">
+        <div class="left">
+          <p>Langauge creates stories...</p>
+          <button>
+            <a href="#">Join our waitlist</a>
+          </button>
+        </div>
+        <div class="right">
+          <div class="container">
+
+              <div class="heading">
+                <p>Matt's first exchange in Los Angeles!</p>
+              </div>
+
+              <div class="center">
+                <div class="image_container">
+                  <img src="../assets/Mateo.png" alt="">
+                  <p class="name">Matt</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-retweet fa-2x"></i>
+                </div>
+                <div class="image_container">
+                  <img src="../assets/Amaranta.png" alt="">
+                  <p class="name">Amaranta</p>
+                </div>
+              </div>
+
+              <div class="bottom_text">
+                <p>
+                  <span class="bold">Learning Spanish</span> with Amaranta was awesome! I thought she would want to practice <span class="bold">conversational English</span> while she was in Los Angeles, but just wanted to meet locals. Instead, she helped with practice my Spanish <span class="bold">over some tacos and margaritas</span> in Downtown. Such a good time- can't wait to visit her in Buenos Aires!
+                </p>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
+      <%# Fourth Slide %>
+      <div class="row row4">
+
+        <%# Top %>
+        <div class="top">
+          <div class="heading">
+            <p>Here's how it works</p>
+          </div>
+        </div>
+
+        <%# Bottom %>
+        <div class="bottom">
+          <div class="col col1">
+            <div class="HIW_col_top">
+              <button>
+                <a href="https://hashtaglanguage.typeform.com/to/n4QlYc">Join our waitlist</a>
+              </button>
+            </div>
+            <p class="line1">
+              Join
+            </p>
+            <p class="line2">
+              Get connected to locals in our community that speak your target language by attending or creating exchanges that fit your style.
+            </p>
+          </div>
+          <div class="col col2">
+            <div class="HIW_col_top" id="screen_container">
+              <img src="../assets/discover_1.png" alt="" class="screen_images">
+              <img src="../assets/discover_2.png" alt="" class="screen_images">
+              <img src="../assets/discover_3.png" alt="" class="screen_images">
+            </div>
+            <p class="line1">
+              Discover
+            </p>
+            <p class="line2">
+              Once you join our global community of language learners from  20+ different countries, find an exchange that works for you!
+            </p>
+          </div>
+          <div class="col col3">
+            <div class="HIW_col_top">
+              <img src="../assets/Email.png" alt="">
+            </div>
+            <p class="line1">
+              Practice
+            </p>
+            <p class="line2">
+              Learn your second language by using it with fluent or native speakers over coffee, at a bar, or even on a hike!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <%# Fifth Slide %>
+      <div class="row row5">
+        <div class="bottom_page_content">
+          <div class="row5_top">
+            <p>
+              Ready to practice Spanish while eating some tacos?
+            </p>
+          </div>
+          <div class="row5_bottom">
+            <button>
+              <a href="https://hashtaglanguage.typeform.com/to/n4QlYc">Join our waitlist</a>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+          <a href="/FAQ">FAQ</a>
+          <a href="/safety">Safety</a>
+          <a href="/code_of_conduct">Code of Conduct</a>
+      </footer>
 
     </div>
 
