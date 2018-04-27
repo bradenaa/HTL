@@ -11,6 +11,7 @@
       gtag('config', 'UA-117842271-1');
     </script>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
 
     <title>Hashtag Language Landing Page</title>
     <link rel="stylesheet" href="/stylesheets/main.css">
@@ -101,7 +102,7 @@
       <div class="row row3">
         <div class="left">
           <p>Langauge creates stories...</p>
-          <button>
+          <button id="hide">
             <a href="#">Join our waitlist</a>
           </button>
         </div>
@@ -120,6 +121,9 @@
                 <div class="icon">
                   <i class="fas fa-retweet fa-2x"></i>
                 </div>
+                <div class="icon" id="mobile_icon">
+                  <i class="fas fa-retweet fa-sm"></i>
+                </div>
                 <div class="image_container">
                   <img src="../assets/Amaranta.png" alt="">
                   <p class="name">Amaranta</p>
@@ -133,6 +137,13 @@
               </div>
 
           </div>
+
+          <div class="row3_bottom_hidden_button">
+            <button>
+              <a href="https://hashtaglanguage.typeform.com/to/n4QlYc">Join our waitlist</a>
+            </button>
+          </div>
+
         </div>
       </div>
 
@@ -149,41 +160,47 @@
         <%# Bottom %>
         <div class="bottom">
           <div class="col col1">
-            <div class="HIW_col_top">
+            <div class="HIW_col_top" id="hide">
               <button>
                 <a href="https://hashtaglanguage.typeform.com/to/n4QlYc">Join our waitlist</a>
               </button>
             </div>
-            <p class="line1">
-              Join
-            </p>
-            <p class="line2">
-              Get connected to locals in our community that speak your target language by attending or creating exchanges that fit your style.
-            </p>
+            <div class="line1">
+              <p>Join</p>
+            </div>
+            <div class="line2">
+              <p>
+                Get connected to locals in our community that speak your target language by attending or creating exchanges that fit your style.
+              </p>
+            </div>
           </div>
           <div class="col col2">
             <div class="HIW_col_top" id="screen_container">
               <img src="../assets/discover_1.png" alt="" class="screen_images">
-              <img src="../assets/discover_2.png" alt="" class="screen_images">
-              <img src="../assets/discover_3.png" alt="" class="screen_images">
+              <img src="../assets/discover_2.png" alt="" class="screen_images" id="second_image">
+              <img src="../assets/discover_3.png" alt="" class="screen_images" id="third_image">
             </div>
-            <p class="line1">
-              Discover
-            </p>
-            <p class="line2">
-              Once you join our global community of language learners from  20+ different countries, find an exchange that works for you!
-            </p>
+            <div class="line1" id="first">
+              <p>Discover</p>
+            </div>
+            <div class="line2">
+              <p>
+                Once you join our global community of language learners from  20+ different countries, find an exchange that works for you!
+              </p>
+            </div>
           </div>
           <div class="col col3">
-            <div class="HIW_col_top">
+            <div class="HIW_col_top" id="hide">
               <img src="../assets/Email.png" alt="">
             </div>
-            <p class="line1">
-              Practice
-            </p>
-            <p class="line2">
-              Learn your second language by using it with fluent or native speakers over coffee, at a bar, or even on a hike!
-            </p>
+            <div class="line1">
+              <p>Practice</p>
+            </div>
+            <div class="line2">
+              <p>
+                Learn your second language by using it with fluent or native speakers over coffee, at a bar, or even on a hike!
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -205,9 +222,9 @@
       </div>
 
       <footer class="footer">
-          <a href="/FAQ">FAQ</a>
-          <a href="/safety">Safety</a>
-          <a href="/code_of_conduct">Code of Conduct</a>
+          <a href="/">FAQ</a>
+          <a href="/">Safety</a>
+          <a href="/">Code of Conduct</a>
       </footer>
 
     </div>
