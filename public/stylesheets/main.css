@@ -1931,7 +1931,7 @@ body {
 /*=============== Mobile Media Changes Landscape ==============*/
 /*=============================================================*/
 
-@media (min-width: 600px) and (max-height: 739px){
+@media (min-width: 600px) and (max-width: 900px) and (max-height: 739px){
 
   .main-column {
     display: -webkit-box;
@@ -2890,7 +2890,7 @@ body {
 /*=============================================================*/
 /*============== Portrait - Tablet Media Changes ==============*/
 /*=============================================================*/
-@media (min-width: 600px) and (min-height: 740px) {
+@media (min-width: 600px) and (min-height: 740px) and (max-width: 899px){
 
   .main-column {
     display: -webkit-box;
@@ -3845,7 +3845,7 @@ body {
 /*======== sm-Laptop/Horizontal Tablet Media Changes ==========*/
 /*=============================================================*/
 
-@media (min-width: 900px) {
+@media (min-width: 900px) and (max-width: 1199px) {
 
   .main-column {
     display: -webkit-box;
@@ -3858,7 +3858,6 @@ body {
   }
 
   .row {
-    height: 80vh;
     width: 100vw;
   }
 
@@ -3867,6 +3866,8 @@ body {
   /*==================*/
 
   .row1, .row5 {
+    height: 80vh;
+    min-height: 500px;
     background-image: url("../assets/son-vu-le-506104-unsplash.jpg");
     background-size: cover;
     background-position: center;
@@ -3965,8 +3966,8 @@ body {
   }
 
   .row1 .front_page_content button {
-    height: 8vh;
-    width: 25vw;
+    height: 55px;
+    width: 280px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -4001,6 +4002,7 @@ body {
 
   .row2 {
     height: 100vh;
+    min-height: 650px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4199,6 +4201,8 @@ body {
   /****** Right Side ******/
 
   .row3 {
+    height: 80vh;
+    min-height: 500px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4245,8 +4249,8 @@ body {
   }
 
   .row3 button {
-    height: 8vh;
-    width: 25vw;
+    height: 55px;
+    width: 280px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -4470,6 +4474,7 @@ body {
 
   .row4 {
     height: 100vh;
+    min-height: 650px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -4641,8 +4646,8 @@ body {
   /* Join Column */
 
   .row4 .bottom .col1 button {
-    height: 7vh;
-    width: 22vw;
+    height: 55px;
+    width: 77%;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -4760,8 +4765,8 @@ body {
   }
 
   .row5 button {
-    height: 8vh;
-    width: 25vw;
+    height: 55px;
+    width: 280px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -4821,7 +4826,7 @@ body {
 /*=================== Regular Media Changes ===================*/
 /*=============================================================*/
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (max-width: 1599px) {
 
   .main-column {
     display: -webkit-box;
@@ -4843,6 +4848,7 @@ body {
 
   .row1, .row5 {
     height: 80vh;
+    min-height: 600px;
     background-image: url("../assets/son-vu-le-506104-unsplash.jpg");
     background-size: cover;
     background-position: center;
@@ -4863,7 +4869,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    /*height: 100%;*/
+    height: 100%;
   }
 
   .row1 .row1_top {
@@ -4883,11 +4889,10 @@ body {
     -webkit-box-flex: 10;
         -ms-flex: 10;
             flex: 10;
-    /*margin-top: 12%;*/
   }
 
   .row1 .row1_top p {
-    font-size: 3.9em;
+    font-size: 3.5em;
     margin: 0 9%;
     font-weight: 600;
     text-align: center;
@@ -4937,14 +4942,11 @@ body {
     -webkit-box-flex: 8;
         -ms-flex: 8;
             flex: 8;
-    /*margin-bottom: 12%;*/
   }
 
   .row1 .front_page_content button {
-    height: 25%;
-    width: 23vw;
-    /*height: 9vh;
-    width: 23vw;*/
+    height: 65px;
+    width: 315px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -4979,6 +4981,7 @@ body {
 
   .row2 {
     height: 100vh;
+    min-height: 725px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -5137,6 +5140,7 @@ body {
 
   .row3 {
     height: 80vh;
+    min-height: 600px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -5182,8 +5186,8 @@ body {
   }
 
   .row3 button {
-    height: 9vh;
-    width: 23vw;
+    height: 65px;
+    width: 315px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -5397,7 +5401,6 @@ body {
     display: none;
   }
 
-  .row3
 
   /*==================*/
   /*==== slide #4 ====*/
@@ -5405,6 +5408,7 @@ body {
 
   .row4 {
     height: 100vh;
+    min-height: 725px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -5533,14 +5537,13 @@ body {
     color: #4a4a4a;
     font-size: 0.9em;
     line-height: 1.3em;
-    /*margin: 0 10% 7% 10%;*/
     margin: 0 10%;
     -webkit-box-flex: 3.5;
         -ms-flex: 3.5;
             flex: 3.5;
   }
 
-  .row4 .bottom .col2 #first {
+  /*.row4 .bottom .col2 #first {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
@@ -5556,15 +5559,13 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-  }
+  }*/
 
   /* Join Column */
 
   .row4 .bottom .col1 button {
-    /*height: 8vh;
-    width: 20vw;*/
-    height: 22%;
-    width: 20vw;
+    height: 65px;
+    width: 70%;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -5593,9 +5594,9 @@ body {
   /* Discover Column */
 
   .row4 .bottom .screen_images {
-    width: 85%;
+    width: 80%;
     height: auto;
-    /*margin: 2% 0;*/
+    margin: 2% 0;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     border-radius: 5px;
   }
@@ -5628,7 +5629,8 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    /*height: 100%;*/
+    height: 100%;
+
   }
 
   .row5 .row5_top {
@@ -5648,13 +5650,12 @@ body {
     -webkit-box-flex: 5.5;
         -ms-flex: 5.5;
             flex: 5.5;
-    /*margin-top: 12%*/
   }
 
   .row5 .row5_top p {
-    font-size: 3.6em;
+    font-size: 3.3em;
     text-align: center;
-    margin: 2% 18%;
+    margin: 4% 18%;
     font-weight: 600;
     letter-spacing: 1px;
     -ms-flex-item-align: end;
@@ -5675,17 +5676,14 @@ body {
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
-    -webkit-box-flex: 4;
-        -ms-flex: 4;
-            flex: 4;
-    /*margin-bottom: 12%;*/
+    -webkit-box-flex: 3;
+        -ms-flex: 3;
+            flex: 3;
   }
 
   .row5 button {
-    height: 25%;
-    width: 23vw;
-    /*height: 9vh;
-    width: 23vw;*/
+    height: 65px;
+    width: 315px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -5768,6 +5766,7 @@ body {
 
   .row1, .row5 {
     height: 80vh;
+    min-height: 700px;
     background-image: url("../assets/son-vu-le-506104-unsplash.jpg");
     background-size: cover;
     background-position: center;
@@ -5808,7 +5807,6 @@ body {
     -webkit-box-flex: 10;
         -ms-flex: 10;
             flex: 10;
-    /*margin-top: 12%;*/
   }
 
   .row1 .row1_top p {
@@ -5862,12 +5860,12 @@ body {
     -webkit-box-flex: 8;
         -ms-flex: 8;
             flex: 8;
-    /*margin-bottom: 12%;*/
+
   }
 
   .row1 .front_page_content button {
-    height: 9vh;
-    width: 23vw;
+    height: 80px;
+    width: 365px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -5902,6 +5900,7 @@ body {
 
   .row2 {
     height: 100vh;
+    min-height: 900px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -5981,7 +5980,6 @@ body {
     margin: 0 3.0%;
     height: 90%;
     width: 65%;
-    /*border: 1px solid black;*/
   }
 
   .row2 .bottom .col .MLW_col_top  {
@@ -6060,6 +6058,7 @@ body {
 
   .row3 {
     height: 80vh;
+    min-height: 700px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -6104,9 +6103,9 @@ body {
     padding-bottom: 7%;
   }
 
-  .row3 button {
-    height: 9vh;
-    width: 23vw;
+  .row3 .left button {
+    height: 80px;
+    width: 365px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -6312,12 +6311,17 @@ body {
     font-weight: 600;
   }
 
+  .row3 .row3_bottom_hidden_button {
+    display: none;
+  }
+
   /*==================*/
   /*==== slide #4 ====*/
   /*==================*/
 
   .row4 {
     height: 100vh;
+    min-height: 900px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -6472,8 +6476,8 @@ body {
   /* Join Column */
 
   .row4 .bottom .col1 button {
-    height: 8vh;
-    width: 20vw;
+    height: 80px;
+    width: 365px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
@@ -6502,7 +6506,7 @@ body {
   /* Discover Column */
 
   .row4 .bottom .screen_images {
-    width: 85%;
+    width: 75%;
     height: auto;
     margin: 2% 0;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -6538,6 +6542,7 @@ body {
         -ms-flex-align: center;
             align-items: center;
     height: 100%;
+    min-height: 700px;
   }
 
   .row5 .row5_top {
@@ -6557,7 +6562,7 @@ body {
     -webkit-box-flex: 5.5;
         -ms-flex: 5.5;
             flex: 5.5;
-    /*margin-top: 12%*/
+
   }
 
   .row5 .row5_top p {
@@ -6587,12 +6592,12 @@ body {
     -webkit-box-flex: 4;
         -ms-flex: 4;
             flex: 4;
-    /*margin-bottom: 12%;*/
+
   }
 
   .row5 button {
-    height: 9vh;
-    width: 23vw;
+    height: 80px;
+    width: 365px;
     background-color: #ef3224;
     border-radius: 10px;
     border: none;
