@@ -6455,7 +6455,7 @@ body {
             flex: 2.5;
   }
 
-  .row4 .bottom .col2 #first {
+  /*.row4 .bottom .col2 #first {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
@@ -6471,7 +6471,7 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-  }
+  }*/
 
   /* Join Column */
 
