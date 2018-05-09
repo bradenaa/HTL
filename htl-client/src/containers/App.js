@@ -4,8 +4,9 @@ import { configureStore } from '../store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { setAuthorizationToken, setCurrentUser } from '../store/actions/auth';
 import jwtDecode from 'jwt-decode';
-
 import Main from './Main';
+
+
 
 const store = configureStore();
 
