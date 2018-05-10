@@ -22,10 +22,12 @@ class Main extends Component {
     };
 
     twitterResponse = (response) => {
+      console.log("response: ", response);
       const token = response.headers.get('x-auth-token');
       response.json().then(user => {
         if (token) {
-          this.setState({isAuthenticated: true, user, token})
+          console.log('t', token);
+          this.setState({isAuthenticated: true, user: user, token: token})
         }
       })
     };
@@ -65,8 +67,11 @@ class Main extends Component {
       };
       fetch('http://localhost:8081/api/auth/google', options)
         .then(r => {
+          console.log(r);
           const token = r.headers.get('x-auth-token');
           r.json().then(user => {
+            console.log(user);
+            console.log(token);
             if (token) {
               this.setState({isAuthenticated: true, user, token})
             }
@@ -99,7 +104,7 @@ class Main extends Component {
                   <TwitterLogin loginUrl="http://localhost:8081/api/auth/twitter"
                     onFailure={this.onFailure}
                     onSuccess={this.twitterResponse}
-                    requestTokenUrl="http://localhost:8081/api/auth/twitter/callback"
+                    requestTokenUrl="http://localhost:8081/api/auth/twitter/reverse"
                   />
                   <FacebookLogin
                     appId={process.env.REACT_APP_FACEBOOK_CLIENT_ID}
