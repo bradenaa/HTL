@@ -10,7 +10,7 @@ import { GoogleLogin } from 'react-google-login';
 
 
 
-class Main extends Component {
+class Auth extends Component {
 
     constructor() {
         super();
@@ -27,7 +27,10 @@ class Main extends Component {
       response.json().then(user => {
         if (token) {
           console.log('t', token);
-          this.setState({isAuthenticated: true, user: user, token: token})
+          console.log(typeof token);
+          console.log(JSON.parse(user));
+          let newUser = JSON.parse(user);
+          this.setState({isAuthenticated: true, user: newUser, token: token})
         }
       })
     };
@@ -87,20 +90,24 @@ class Main extends Component {
     render() {
         let content = !!this.state.isAuthenticated ?
             (
-                <div>
+              <div className='popup'>
+                <div className='popup_inner'>
                   <p>Authenticated</p>
                   <div>
-                    {this.state.user.email}
+                    {this.state.user.name}
                   </div>
                   <div>
                     <button onClick={this.logout} className="button">
                       Log out
                     </button>
+                    <button onClick={this.props.closePopup}>Close</button>
                   </div>
                 </div>
+              </div>
             ) :
             (
-                <div>
+              <div className="popup">
+                <div className="popup_inner">
                   <TwitterLogin loginUrl="http://localhost:8081/api/auth/twitter"
                     onFailure={this.onFailure}
                     onSuccess={this.twitterResponse}
@@ -118,7 +125,9 @@ class Main extends Component {
                     onSuccess={this.googleResponse}
                     onFailure={this.onFailure}
                   />
+                  <button onClick={this.props.closePopup}>Close</button>
                 </div>
+              </div>
             );
 
         return (
@@ -129,4 +138,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default Auth;

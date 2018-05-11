@@ -16,7 +16,14 @@ module.exports = function () {
         },
         function (token, tokenSecret, profile, done) {
             User.upsertTwitterUser(token, tokenSecret, profile, function(err, user) {
-                return done(err, user);
+              // console.log("profilePW ", profile);
+              // console.log("userPW: ", user);
+              let newUser = {};
+              newUser.name = profile.displayName;
+              newUser.email = user.email;
+              newUser.id = user._id;
+              // console.log("newUSer ", newUser);
+              return done(err, newUser);
             });
         }));
 

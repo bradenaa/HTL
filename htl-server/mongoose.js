@@ -23,6 +23,7 @@ module.exports = function () {
         twitterProvider: {
             type: {
                 id: String,
+                username: String,
                 token: String
             },
             select: false
@@ -40,6 +41,7 @@ module.exports = function () {
 
     UserSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
         var that = this;
+        // console.log(profile);
         return this.findOne({
             'twitterProvider.id': profile.id
         }, function(err, user) {
@@ -49,6 +51,7 @@ module.exports = function () {
                     email: profile.emails[0].value,
                     twitterProvider: {
                         id: profile.id,
+                        username: profile.displayName,
                         token: token,
                         tokenSecret: tokenSecret
                     }

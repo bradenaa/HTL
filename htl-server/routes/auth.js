@@ -3,97 +3,31 @@ var router = express.Router();
 var { generateToken, sendToken } = require('../utils/token.utils');
 var passport = require('passport');
 var request = require('request');
+const { twitterRequestToken, twitterAccessToken, login  } = require("../handlers/auth");
 require('../passport')();
 
-router.route('/auth/twitter/reverse')
-    .post(function(req, res) {
-        request.post({
-            url: 'https://api.twitter.com/oauth/request_token',
-            oauth: {
-                oauth_callback: "http%3A%2F%2Flocalhost%3A3000%2Ftwitter-callback",
-                consumer_key: process.env.TWITTER_CLIENT_ID,
-                consumer_secret: process.env.TWITTER_CLIENT_SECRET,
-            }
-        }, function (err, r, body) {
-            if (err) {
-              console.log('2: ' + err);
-                // return res.send(500, { message: err.message });
-              return next({
-                status: 500,
-                message: err.message
-              })
-            }
-            // console.log("body: ", body);
-            var jsonStr = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
-            // console.log("string: ",jsonStr);
-            console.log("json: ", JSON.parse(jsonStr));
-            res.send(JSON.parse(jsonStr));
-        });
-    });
+router.post('/auth/twitter/reverse', twitterRequestToken);
 
-router.route('/auth/twitter')
-    .post((req, res, next) => {
-        request.post({
-            url: `https://api.twitter.com/oauth/access_token?oauth_verifier`,
-            oauth: {
-                consumer_key: process.env.TWITTER_CLIENT_ID,
-                consumer_secret: process.env.TWITTER_CLIENT_SECRET,
-                token: req.query.oauth_token
-            },
-            form: { oauth_verifier: req.query.oauth_verifier }
-        }, function (err, r, body) {
-            if (err) {
-                return next({
-                  status: 500,
-                  message: err.message
-                });
-            }
+router.post('/auth/twitter',
+  twitterAccessToken,
+  passport.authenticate('twitter-token', {session: false}),
+  login,
+  generateToken,
+  sendToken
+);
 
-            const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
-            const parsedBody = JSON.parse(bodyString);
+router.post('/auth/facebook',
+  passport.authenticate('facebook-token', {session: false}),
+  login,
+  generateToken,
+  sendToken
+);
 
-            req.body['oauth_token'] = parsedBody.oauth_token;
-            req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
-            req.body['user_id'] = parsedBody.user_id;
-
-            next();
-        });
-    }, passport.authenticate('twitter-token', {session: false}), function(req, res, next) {
-        if (!req.user) {
-            return next({
-              status: 401,
-              message: 'User Not Authenticated'
-            });
-        }
-        req.auth = {
-            id: req.user.id
-        };
-
-        return next();
-    }, generateToken, sendToken);
-
-router.route('/auth/facebook')
-    .post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
-        if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
-        }
-        req.auth = {
-            id: req.user.id
-        };
-
-        next();
-    }, generateToken, sendToken);
-
-router.route('/auth/google')
-    .post(passport.authenticate('google-token', {session: false}), function(req, res, next) {
-        if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
-        }
-        req.auth = {
-            id: req.user.id
-        };
-
-        next();
-    }, generateToken, sendToken);
+router.post('/auth/google',
+  passport.authenticate('google-token', {session: false}),
+  login,
+  generateToken,
+  sendToken
+);
 
 module.exports = router;

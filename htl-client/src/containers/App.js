@@ -4,9 +4,9 @@ import { configureStore } from '../store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { setAuthorizationToken, setCurrentUser } from '../store/actions/auth';
 import jwtDecode from 'jwt-decode';
-import Main from './Main';
-
-
+import { Helmet } from 'react-helmet';
+import Landing from './Landing';
+import Navbar from './Navbar';
 
 const store = configureStore();
 
@@ -25,8 +25,17 @@ if(localStorage.jwtToken) {
 const App = () => (
   <Provider store={store}>
     <Router>
-      <div>
-        <Main />
+      <div className='application'>
+        <Helmet>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width" />
+          <title>Hashtag Language Landing Page</title>
+          <link href="https://fonts.googleapis.com/css?family=Montserrat:300,600,700" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" />
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous" />
+        </Helmet>
+        <Navbar />
+        <Landing />
       </div>
     </Router>
   </Provider>
