@@ -12,74 +12,53 @@ import { GoogleLogin } from 'react-google-login';
 
 class Auth extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { isAuthenticated: false, user: null, token: ''};
     }
 
-    logout = () => {
-        this.setState({isAuthenticated: false, token: '', user: null})
+    logout = e => {
+      e.preventDefault();
+      this.props.logout();
     };
 
     twitterResponse = (response) => {
-      console.log("response: ", response);
-      const token = response.headers.get('x-auth-token');
-      response.json().then(user => {
-        if (token) {
-          console.log('t', token);
-          console.log(typeof token);
-          console.log(JSON.parse(user));
-          let newUser = JSON.parse(user);
-          this.setState({isAuthenticated: true, user: newUser, token: token})
-        }
-      })
+      this.props.twitterAuth(response);
+      // response.json().then(user => {
+      //   console.log(user);
+      //   if (user.token) {
+      //     this.setState({isAuthenticated: true, user: user, token: user.token})
+      //   }
+      // })
     };
 
     facebookResponse = (response) => {
-      const tokenBlob = new Blob(
-        [JSON.stringify({access_token: response.accessToken}, null, 2)],
-        {type: 'application/json'}
-      );
-      const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default'
-      };
-      fetch('http://localhost:8081/api/auth/facebook', options)
-        .then(r => {
-          const token = r.headers.get('x-auth-token');
-          r.json().then(user => {
-            if (token) {
-              this.setState({isAuthenticated: true, user, token})
-            }
-          });
-        })
+      console.log("response", response);
+      this.props.authUser('facebook', response);
+      // const tokenBlob = new Blob(
+      //   [JSON.stringify({access_token: response.accessToken}, null, 2)],
+      //   {type: 'application/json'}
+      // );
+      // const options = {
+      //   method: 'POST',
+      //   body: tokenBlob,
+      //   mode: 'cors',
+      //   cache: 'default'
+      // };
+      // fetch('http://localhost:8081/api/auth/facebook', options)
+      //   .then(r => {
+      //     const token = r.headers.get('x-auth-token');
+      //     r.json().then(user => {
+      //       if (token) {
+      //         this.setState({isAuthenticated: true, user, token})
+      //       }
+      //     });
+      //   })
     };
 
     googleResponse = (response) => {
-      const tokenBlob = new Blob(
-        [JSON.stringify({access_token: response.accessToken}, null, 2)],
-        {type: 'application/json'}
-      );
-      const options = {
-        method: 'POST',
-        body: tokenBlob,
-        mode: 'cors',
-        cache: 'default'
-      };
-      fetch('http://localhost:8081/api/auth/google', options)
-        .then(r => {
-          console.log(r);
-          const token = r.headers.get('x-auth-token');
-          r.json().then(user => {
-            console.log(user);
-            console.log(token);
-            if (token) {
-              this.setState({isAuthenticated: true, user, token})
-            }
-          });
-        })
+      console.log("response", response);
+      this.props.authUser('google', response);
     };
 
     onFailure = (error) => {
@@ -88,13 +67,22 @@ class Auth extends Component {
     };
 
     render() {
-        let content = !!this.state.isAuthenticated ?
+        let content = !!this.props.currentUser.isAuthenticated ?
             (
               <div className='popup'>
                 <div className='popup_inner'>
                   <p>Authenticated</p>
                   <div>
-                    {this.state.user.name}
+                    {this.props.currentUser.user.name}
+                  </div>
+                  <div>
+                    {this.props.currentUser.user.email}
+                  </div>
+                  <div>
+                    {this.props.currentUser.user.id}
+                  </div>
+                  <div>
+                    {this.props.currentUser.user.token}
                   </div>
                   <div>
                     <button onClick={this.logout} className="button">
@@ -137,5 +125,14 @@ class Auth extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+    errors: state.errors
+
+  }
+}
+
 
 export default Auth;

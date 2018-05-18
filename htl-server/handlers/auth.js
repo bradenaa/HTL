@@ -1,4 +1,5 @@
 const request = require("request");
+const jwt = require("jsonwebtoken");
 
 exports.twitterRequestToken = function(req, res) {
     request.post({
@@ -52,15 +53,29 @@ exports.twitterAccessToken = (req, res, next) => {
 }
 
 exports.login = function(req, res, next) {
+  //handle if user wasn't passed
     if (!req.user) {
         return next({
           status: 401,
           message: 'User Not Authenticated'
         });
     }
-    req.auth = {
-        id: req.user.id
-    };
+    let { name, email, id } = req.user;
+    // create token
+    let token = jwt.sign({
+      name,
+      email,
+      id
+    }, process.env.JWT_SECRET,
+    {
+      expiresIn: 60 * 120
+    });
 
-    return next();
+    return res.status(200).json({
+      name,
+      email,
+      id,
+      token
+    })
+
 }

@@ -16,13 +16,13 @@ module.exports = function () {
         },
         function (token, tokenSecret, profile, done) {
             User.upsertTwitterUser(token, tokenSecret, profile, function(err, user) {
-              // console.log("profilePW ", profile);
-              // console.log("userPW: ", user);
               let newUser = {};
               newUser.name = profile.displayName;
               newUser.email = user.email;
               newUser.id = user._id;
-              // console.log("newUSer ", newUser);
+
+              // console.log("profile: ", profile);
+              // console.log("user: ", user)
               return done(err, newUser);
             });
         }));
@@ -33,7 +33,14 @@ module.exports = function () {
         },
         function (accessToken, refreshToken, profile, done) {
             User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
-                return done(err, user);
+              let newUser = {};
+              newUser.name = profile.displayName;
+              newUser.email = user.email;
+              newUser.id = user._id;
+
+              // console.log("profile: ", profile);
+              // console.log("user: ", user)
+              return done(err, newUser);
             });
         }));
 
@@ -43,7 +50,14 @@ module.exports = function () {
         },
         function (accessToken, refreshToken, profile, done) {
             User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
-                return done(err, user);
+              let newUser = {};
+              newUser.name = profile.displayName;
+              newUser.email = user.email;
+              newUser.id = user._id;
+
+              // console.log("profile: ", profile);
+              // console.log("newUser: ", newUser);
+              return done(err, newUser);
             });
         }));
 };

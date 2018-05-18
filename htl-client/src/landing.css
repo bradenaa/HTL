@@ -954,7 +954,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -1916,7 +1916,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -2874,7 +2874,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -3830,7 +3830,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -4811,7 +4811,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -5729,7 +5729,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;
@@ -6642,7 +6642,7 @@ body {
         flex-wrap: nowrap;
   }
 
-  footer a {
+  footer .footerLink {
     text-decoration: none;
     color: #4a4a4a;
     margin: 1% 2%;

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Auth from './Auth';
-// import { logout } from '../store/actions/auth';
+import { logout, twitterAuth, authUser } from '../store/actions/auth';
+import { removeError } from '../store/actions/errors';
+
 
 
 
@@ -14,13 +16,16 @@ class Navbar extends Component {
     };
   }
 
-  togglePopup = () => {
+  togglePopup = e => {
+    e.preventDefault();
     this.setState({
       showPopup: !this.state.showPopup
     });
   }
 
   render() {
+    const { logout, authUser, twitterAuth, errors, removeError, currentUser } = this.props;
+
     return (
       <div className="nav_and_popup">
         <nav className="navbar">
@@ -34,6 +39,11 @@ class Navbar extends Component {
             this.state.showPopup ?
               <Auth
                 closePopup={this.togglePopup}
+                twitterAuth={twitterAuth}
+                logout={logout}
+                currentUser={currentUser}
+                authUser={authUser}
+                // {...props}
               />
             : null
           }
@@ -43,4 +53,11 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+    errors: state.errors
+  };
+}
+
+export default withRouter(connect(mapStateToProps, {  logout, authUser, twitterAuth, removeError })(Navbar));

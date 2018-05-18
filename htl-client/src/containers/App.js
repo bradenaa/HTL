@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { setAuthorizationToken, setCurrentUser } from '../store/actions/auth';
 import jwtDecode from 'jwt-decode';
 import { Helmet } from 'react-helmet';
-import Landing from './Landing';
+import Main from './Main';
 import Navbar from './Navbar';
 
 const store = configureStore();
@@ -35,7 +35,7 @@ const App = () => (
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous" />
         </Helmet>
         <Navbar />
-        <Landing />
+        <Main />
       </div>
     </Router>
   </Provider>
