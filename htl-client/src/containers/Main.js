@@ -5,9 +5,13 @@ import Landing from "../components/Landing";
 import FAQ from "../components/FAQ";
 import { twitterAuth, authUser } from '../store/actions/auth';
 import { removeError } from '../store/actions/errors';
+import withAuth from '../hocs/withAuth';
+import Events from '../components/Events';
+import EventForm from '../containers/EventForm';
 
 const Main = props => {
-  const { authUser, twitterAuth ,errors, removeError, currentUser } = props;
+
+  const { authUser, twitterAuth, errors, removeError, currentUser } = props;
 
   return (
     <div className="container">
@@ -19,6 +23,14 @@ const Main = props => {
         <Route
           exact path="/FAQ"
           render={props => <FAQ currentUser={currentUser} {...props} />}
+        />
+        <Route
+          path="/events"
+          component={withAuth(Events)}
+        />
+        <Route
+          path="/users/:id/events/new"
+          component={withAuth(EventForm, removeError)}
         />
       </Switch>
     </div>

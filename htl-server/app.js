@@ -1,19 +1,27 @@
 require('dotenv').config();
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const db = require("./models");
 
-var index = require('./routes/auth');
-var errorHandler = require('./handlers/error');
+// Routes
+const authRoutes = require('./routes/auth');
+const eventRoutes = require('./routes/events');
 
-var app = express();
+// Handlers
+const errorHandler = require('./handlers/error');
 
-var corsOptions = {
+// Middleware
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
+
+const app = express();
+
+const corsOptions = {
   origin: true,
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true,
@@ -33,8 +41,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/', index);
-// app.use('/users', users);
+
+// ======================================
+// ========== ROUTE USAGE ===============
+// ======================================
+
+app.use('/api/auth', authRoutes);
+
+app.use(
+  "/api/users/:id/events",
+  loginRequired,
+  ensureCorrectUser,
+  eventRoutes
+);
+
+app.get("/api/events", loginRequired, async function(req, res, next){
+  try {
+    let events = await db.Event.find({})
+      .sort({ createdAt: "desc"})
+      .populate("user", {
+        email: true,
+      });
+      console.log(events);
+    return res.status(200).json(events);
+  } catch (err) {
+    return next(err);
+  }
+})
+
+
+
 
 // // catch 404 and forward to error handler
 app.use(function(req, res, next) {

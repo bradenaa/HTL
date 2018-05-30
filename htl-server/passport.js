@@ -1,9 +1,8 @@
 'use strict';
 
-require('./mongoose')();
+const db = require("./models");
 var passport = require('passport');
 var TwitterTokenStrategy = require('passport-twitter-token');
-var User = require('mongoose').model('User');
 var FacebookTokenStrategy = require('passport-facebook-token');
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 
@@ -15,14 +14,14 @@ module.exports = function () {
             includeEmail: true
         },
         function (token, tokenSecret, profile, done) {
-            User.upsertTwitterUser(token, tokenSecret, profile, function(err, user) {
+            db.User.upsertTwitterUser(token, tokenSecret, profile, function(err, user) {
               let newUser = {};
               newUser.name = profile.displayName;
               newUser.email = user.email;
               newUser.id = user._id;
 
               // console.log("profile: ", profile);
-              // console.log("user: ", user)
+              console.log("1user: ", user);
               return done(err, newUser);
             });
         }));
@@ -32,7 +31,7 @@ module.exports = function () {
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET
         },
         function (accessToken, refreshToken, profile, done) {
-            User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
+            db.User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
               let newUser = {};
               newUser.name = profile.displayName;
               newUser.email = user.email;
@@ -49,7 +48,7 @@ module.exports = function () {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
         },
         function (accessToken, refreshToken, profile, done) {
-            User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
+            db.User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
               let newUser = {};
               newUser.name = profile.displayName;
               newUser.email = user.email;

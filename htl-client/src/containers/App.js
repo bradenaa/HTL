@@ -13,7 +13,8 @@ const store = configureStore();
 if(localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
   // prevents someone from manually tampering with the key of jwtToken
-  // in localStorage because only with the right token, will someone be able // to login as the right user or at all, depending on if the token
+  // in localStorage because only with the right token, will someone be able
+  // to login as the right user or at all, depending on if the token
   // represents a user like object.
   try {
     store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));

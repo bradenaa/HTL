@@ -31,7 +31,19 @@ class Navbar extends Component {
         <nav className="navbar">
           <div className="nav_container">
             <p>Hashtag Language</p>
-            <button id="loginButton" onClick={this.togglePopup}>Login</button>
+            {this.props.currentUser.isAuthenticated ? (
+              <div>
+                <Link to="/events">Events</Link>
+                <Link to={`/users/${this.props.currentUser.user.id}/events/new`}>
+                  New Event
+                </Link>
+                <button id="loginButton" onClick={logout}>Logout</button>
+              </div>
+            ) : (
+              <div>
+                <button id="loginButton" onClick={this.togglePopup}>Login</button>
+              </div>
+            )}
           </div>
         </nav>
         <div className="popup_container">

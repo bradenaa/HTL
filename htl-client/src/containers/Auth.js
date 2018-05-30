@@ -24,36 +24,11 @@ class Auth extends Component {
 
     twitterResponse = (response) => {
       this.props.twitterAuth(response);
-      // response.json().then(user => {
-      //   console.log(user);
-      //   if (user.token) {
-      //     this.setState({isAuthenticated: true, user: user, token: user.token})
-      //   }
-      // })
     };
 
     facebookResponse = (response) => {
       console.log("response", response);
       this.props.authUser('facebook', response);
-      // const tokenBlob = new Blob(
-      //   [JSON.stringify({access_token: response.accessToken}, null, 2)],
-      //   {type: 'application/json'}
-      // );
-      // const options = {
-      //   method: 'POST',
-      //   body: tokenBlob,
-      //   mode: 'cors',
-      //   cache: 'default'
-      // };
-      // fetch('http://localhost:8081/api/auth/facebook', options)
-      //   .then(r => {
-      //     const token = r.headers.get('x-auth-token');
-      //     r.json().then(user => {
-      //       if (token) {
-      //         this.setState({isAuthenticated: true, user, token})
-      //       }
-      //     });
-      //   })
     };
 
     googleResponse = (response) => {

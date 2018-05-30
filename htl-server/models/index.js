@@ -7,3 +7,4 @@ mongoose.connect("mongodb://localhost/HTL_MAIN_APP2", {
 });
 
 module.exports.User = require("./user");
+module.exports.Event = require("./event");

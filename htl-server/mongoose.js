@@ -7,37 +7,37 @@ module.exports = function () {
 
     var db = mongoose.connect('mongodb://localhost:27017/HTL_MAIN_APP2');
 
-    var UserSchema = new Schema({
-        email: {
-            type: String, required: true,
-            trim: true, unique: true,
-            match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        },
-        facebookProvider: {
-            type: {
-                id: String,
-                username: String,
-                token: String
-            },
-            select: false
-        },
-        twitterProvider: {
-            type: {
-                id: String,
-                username: String,
-                token: String
-            },
-            select: false
-        },
-        googleProvider: {
-            type: {
-                id: String,
-                username: String,
-                token: String
-            },
-            select: false
-        }
-    });
+    // var UserSchema = new Schema({
+    //     email: {
+    //         type: String, required: true,
+    //         trim: true, unique: true,
+    //         match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    //     },
+    //     facebookProvider: {
+    //         type: {
+    //             id: String,
+    //             username: String,
+    //             token: String
+    //         },
+    //         select: false
+    //     },
+    //     twitterProvider: {
+    //         type: {
+    //             id: String,
+    //             username: String,
+    //             token: String
+    //         },
+    //         select: false
+    //     },
+    //     googleProvider: {
+    //         type: {
+    //             id: String,
+    //             username: String,
+    //             token: String
+    //         },
+    //         select: false
+    //     }
+    // });
 
     // var UserSchema2 = new Schema({
     //   name: String,
@@ -50,24 +50,93 @@ module.exports = function () {
     //            { kind: 'facebook',
     //              uid: 'fred.rogers'
     //            },
-    //            { kind: 'internal',
+    //            { kind: 'google',
     //              username: 'frogers',
     //              password: '5d41402abc4b2a76b9719d911017c592'
     //            },
     //            { kind: 'twitter',
-    //              uid: 'fredr'
+    //              uid: String
     //            }
     //         ]
     // })
 
+    var UserSchema = new Schema({
+        email: {
+            type: String, required: true,
+            trim: true, unique: false,
+            match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        },
+        facebookProvider: {
+            type: {
+                provider: "facebook",
+                id: String,
+                username: String,
+                token: String
+            },
+            select: false
+        },
+        twitterProvider: {
+            type: {
+                provider: "twitter",
+                id: String,
+                username: String,
+                token: String
+            },
+            select: false
+        },
+        googleProvider: {
+            type: {
+                provider: "google",
+                id: String,
+                username: String,
+                token: String
+            },
+            select: false
+        }
+    });
+
     UserSchema.set('toJSON', {getters: true, virtuals: true});
 
+    // UserSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
+    //     var that = this;
+    //     // console.log(profile);
+    //     return this.findOne({
+    //         'twitterProvider.id': profile.id
+    //     }, function(err, user) {
+    //         // no user was found, lets create a new one
+    //         if (!user) {
+    //             var newUser = new that({
+    //                 email: profile.emails[0].value,
+    //                 twitterProvider: {
+    //                     id: profile.id,
+    //                     username: profile.displayName,
+    //                     token: token,
+    //                     tokenSecret: tokenSecret
+    //                 }
+    //             });
+    //
+    //             newUser.save(function(error, savedUser) {
+    //                 if (error) {
+    //                     console.log(error);
+    //                 }
+    //                 return cb(error, savedUser);
+    //             });
+    //         } else {
+    //             return cb(err, user);
+    //         }
+    //     });
+    // };
     UserSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
         var that = this;
         // console.log(profile);
         return this.findOne({
-            'twitterProvider.id': profile.id
+          $or: [
+            { 'twitterProvider.id': profile.id },
+            { 'email': profile.emails[0].value }
+          ]
+
         }, function(err, user) {
+            console.log("user found as: ", user);
             // no user was found, lets create a new one
             if (!user) {
                 var newUser = new that({
@@ -84,6 +153,7 @@ module.exports = function () {
                     if (error) {
                         console.log(error);
                     }
+                    console.log("new user saved as: ", savedUser);
                     return cb(error, savedUser);
                 });
             } else {
@@ -136,6 +206,7 @@ module.exports = function () {
         return this.findOne({
             'facebookProvider.id': profile.id
         }, function(err, user) {
+            console.log("user found as: ", user);
             // no user was found, lets create a new one
             if (!user) {
                 var newUser = new that({
@@ -151,6 +222,7 @@ module.exports = function () {
                     if (error) {
                         console.log(error);
                     }
+                    console.log("new user saved as: ", savedUser);
                     return cb(error, savedUser);
                 });
             } else {
@@ -165,10 +237,11 @@ module.exports = function () {
             'googleProvider.id': profile.id
         }, function(err, user) {
             // no user was found, lets create a new one
+            console.log("user:", user)
             if (!user) {
                 var newUser = new that({
                     email: profile.emails[0].value,
-                    facebookProvider: {
+                    googleProvider: {
                         id: profile.id,
                         username: profile.displayName,
                         token: accessToken,
@@ -179,6 +252,7 @@ module.exports = function () {
                     if (error) {
                         console.log(error);
                     }
+                    console.log("new user saved as: ", savedUser);
                     return cb(error, savedUser);
                 });
             } else {
