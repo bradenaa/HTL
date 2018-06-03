@@ -7,9 +7,11 @@ const EventItem = (
     date,
     title,
     neighborhood,
+    attending,
     removeEvent,
     userID,
-    isCorrectUser
+    isCorrectUser,
+    joinEvent
   }
 ) => (
   <div>
@@ -24,6 +26,7 @@ const EventItem = (
       {isCorrectUser && (
         <a onClick={removeEvent}>Delete</a>
       )}
+      <a onClick={joinEvent}>Join</a>
     </li>
   </div>
 )

@@ -59,10 +59,10 @@ app.get("/api/events", loginRequired, async function(req, res, next){
   try {
     let events = await db.Event.find({})
       .sort({ createdAt: "desc"})
-      .populate("user", {
+      .populate("usersAttending", {
         email: true,
       });
-      console.log(events);
+      console.log(events.usersAttending);
     return res.status(200).json(events);
   } catch (err) {
     return next(err);

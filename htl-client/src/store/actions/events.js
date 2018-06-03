@@ -24,12 +24,20 @@ export const fetchEvents = () => {
   return dispatch => {
     return apiCall("get", '/api/events')
       .then(res => {
-        console.log(res[0]);
+        // console.log(res[0]);
         dispatch(loadEvents(res));
       })
       .catch(err => dispatch(addError(err.message)));
   };
 };
+
+export const joinEvent = (event_id, user_id) => {
+  return dispatch => {
+    return apiCall("put", `api/users/${user_id}/events/${event_id}`)
+      .then(res => console.log(res))
+      .catch(err => dispatch(addError(err.message)))
+  }
+}
 
 // function the accepts some text as a parameter
 // and immediately returns dispatch and getState

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchEvents, removeEvent } from '../store/actions/events';
+import { fetchEvents, removeEvent, joinEvent } from '../store/actions/events';
 import EventItem from '../components/EventItem';
 
 class EventList extends Component {
@@ -9,19 +9,23 @@ class EventList extends Component {
   }
 
   render() {
-    const { events, removeEvent, currentUser } = this.props;
+    const { events, removeEvent, joinEvent, currentUser } = this.props;
+    // console.log(currentUser);
+    // console.log(typeof currentUser);
     let eventList = events.map(e => (
 
       <EventItem
-        removeEvent={removeEvent.bind(this, e.user._id, e._id)}
+        removeEvent={removeEvent.bind(this, e.userCreated, e._id)}
+        joinEvent={joinEvent.bind(this, e._id, currentUser)}
         key={e._id}
         date={e.date}
         title={e.title}
         neighborhood={e.neighborhood}
-        userID={e.user._id}
-        isCorrectUser={currentUser === e.user._id}
+        attending={e.usersAttending}
+        userID={e.userCreated}
+        isCorrectUser={currentUser === e.userCreated}
       />
-    ))
+    ));
 
     return (
       <div>
@@ -40,4 +44,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchEvents, removeEvent })(EventList);
+export default connect(mapStateToProps, { fetchEvents, removeEvent, joinEvent })(EventList);

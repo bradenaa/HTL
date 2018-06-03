@@ -53,7 +53,7 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
       ]
 
     }, function(err, user) {
-        console.log("user found as: ", user);
+        // console.log("user found as: ", user);
         // no user was found, lets create a new one
         if (!user) {
             var newUser = new that({
@@ -85,7 +85,7 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
         'googleProvider.id': profile.id
     }, function(err, user) {
         // no user was found, lets create a new one
-        console.log("user:", user)
+        // console.log("user:", user)
         if (!user) {
             var newUser = new that({
                 email: profile.emails[0].value,
@@ -100,7 +100,7 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
                 if (error) {
                     console.log(error);
                 }
-                console.log("new user saved as: ", savedUser);
+                // console.log("new user saved as: ", savedUser);
                 return cb(error, savedUser);
             });
         } else {

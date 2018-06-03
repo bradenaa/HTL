@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({mergeParams: true});
 
-const { createEvent, deleteEvent } = require("../handlers/events");
+const { createEvent, deleteEvent, joinEvent } = require("../handlers/events");
 
 // prefix - /api/users/:id/events
 router.route('/').post(createEvent);
@@ -10,6 +10,7 @@ router.route('/').post(createEvent);
 router
   .route('/:event_id')
   .delete(deleteEvent)
+  .put(joinEvent)
 
 
 module.exports = router;

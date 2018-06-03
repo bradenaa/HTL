@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 exports.loginRequired = function(req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Bearer jdfsdfisd
-    console.log(token);
+    // console.log(token);
     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
-      console.log(decoded);
+      // console.log(decoded);
       if (decoded) {
         return next();
       } else {
