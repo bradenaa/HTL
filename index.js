@@ -9,7 +9,7 @@ var port = process.env.PORT || 8080;
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/public"));
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'icon-htl.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'assets', 'Icon.png')));
 
 app.get('/', function(req, res, next){
   res.render('index');
