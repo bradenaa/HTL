@@ -1,5 +1,6 @@
 const request = require("request");
 const jwt = require("jsonwebtoken");
+const db = require("../models");
 
 exports.twitterRequestToken = function(req, res) {
     request.post({
@@ -60,22 +61,66 @@ exports.login = function(req, res, next) {
           message: 'User Not Authenticated'
         });
     }
-    let { name, email, id } = req.user;
+
+    // console.log("login user: ", req.user);
+    let { displayName, email, id, hasPromo } = req.user;
     // create token
     let token = jwt.sign({
-      name,
+      displayName,
       email,
-      id
+      id,
+      hasPromo
     }, process.env.JWT_SECRET,
     {
       expiresIn: 60 * 120
     });
 
     return res.status(200).json({
-      name,
+      displayName,
       email,
       id,
+      hasPromo,
       token
     })
 
+}
+
+exports.promoHandler = async function(req, res, next){
+  try {
+    let foundUser = await db.User.findById(req.params.userID);
+    if (req.params.promoCode === 'htl') {
+      foundUser.hasPromo = true;
+      await foundUser.save();
+      console.log("from the promocode: ", foundUser);
+      // console.log("login user: ", req.user);
+      let { displayName, email, hasPromo } = foundUser;
+      let id = foundUser._id;
+      // create token
+      let token = jwt.sign({
+        displayName,
+        email,
+        id,
+        hasPromo
+      }, process.env.JWT_SECRET,
+      {
+        expiresIn: 60 * 120
+      });
+
+      console.log("token: ", token);
+      return res.status(200).json({
+        displayName,
+        email,
+        id,
+        hasPromo,
+        token
+      })
+
+    }
+    return next({
+      status: 400,
+      message: 'This promo code is not correct'
+    })
+  } catch(err) {
+    return next(err)
+  }
 }

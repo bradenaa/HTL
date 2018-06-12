@@ -1,5 +1,5 @@
 import { apiCall, setTokenHeader } from "../../services/api";
-import { SET_CURRENT_USER } from '../actionTypes';
+import { SET_CURRENT_USER, SET_PROMO } from '../actionTypes';
 import { addError, removeError } from './errors';
 
 // Here we will run a function that will accept a user object and return the action from current user action.
@@ -9,6 +9,13 @@ export function setCurrentUser(user){
   return {
     type: SET_CURRENT_USER,
     user
+  };
+};
+
+export function setPromo(promo){
+  return {
+    type: SET_PROMO,
+    promo
   };
 }
 
@@ -84,6 +91,23 @@ export function twitterAuth(response) {
     })
   }
 }
+
+export const submitPromo = (promo, user_id) => {
+  return dispatch => {
+    return apiCall('put', `api/auth/users/${user_id}/promo/${promo}`)
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("jwtToken", res.token)
+        setAuthorizationToken(res.token);
+        dispatch(setCurrentUser(res));
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch(addError(err.message));
+      })
+  }
+}
+
 
 export function logout() {
   return dispatch => {

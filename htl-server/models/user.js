@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
       trim: true, unique: false,
       match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   },
+  displayName: {
+    type: String,
+    default: "NEW USER"
+  },
   facebookProvider: {
       type: {
           provider: "facebook",
@@ -33,10 +37,20 @@ const userSchema = new mongoose.Schema({
       },
       select: false
   },
+  hasPromo: {
+    type: Boolean,
+    default: false,
+  },
   events: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event"
+    },
+  ],
+  discussions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Discussion"
     }
   ]
 })
@@ -63,14 +77,15 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
                     username: profile.displayName,
                     token: token,
                     tokenSecret: tokenSecret
-                }
+                },
+                hasPromo: false
             });
 
             newUser.save(function(error, savedUser) {
                 if (error) {
                     console.log(error);
                 }
-                console.log("new user saved as: ", savedUser);
+                // console.log("new user saved as: ", savedUser);
                 return cb(error, savedUser);
             });
         } else {
@@ -82,7 +97,10 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
 userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profile, cb) {
     var that = this;
     return this.findOne({
-        'googleProvider.id': profile.id
+      $or: [
+        { 'googleProvider.id': profile.id },
+        { 'email': profile.emails[0].value }
+      ]
     }, function(err, user) {
         // no user was found, lets create a new one
         // console.log("user:", user)
@@ -93,7 +111,42 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
                     id: profile.id,
                     username: profile.displayName,
                     token: accessToken,
+                },
+                hasPromo: false
+            });
+
+            newUser.save(function(error, savedUser) {
+                if (error) {
+                    console.log(error);
                 }
+                // console.log("new user saved as: ", savedUser);
+                return cb(error, savedUser);
+            });
+        } else {
+            return cb(err, user);
+        }
+    });
+};
+
+userSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
+    var that = this;
+    return this.findOne({
+      $or: [
+        { 'facebookProvider.id': profile.id },
+        { 'email': profile.emails[0].value }
+      ]
+    }, function(err, user) {
+        // no user was found, lets create a new one
+        // console.log("user:", user)
+        if (!user) {
+            var newUser = new that({
+                email: profile.emails[0].value,
+                googleProvider: {
+                    id: profile.id,
+                    username: profile.displayName,
+                    token: accessToken,
+                },
+                hasPromo: false
             });
 
             newUser.save(function(error, savedUser) {

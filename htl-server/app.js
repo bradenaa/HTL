@@ -7,11 +7,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const jwt = require("jsonwebtoken");
 const db = require("./models");
 
 // Routes
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events');
+const discussionRoutes = require('./routes/discussions');
 
 // Handlers
 const errorHandler = require('./handlers/error');
@@ -49,10 +51,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 
 app.use(
-  "/api/users/:id/events",
+  "/api/user/:userID/events",
   loginRequired,
   ensureCorrectUser,
   eventRoutes
+);
+
+app.use(
+  "/api/user/:userID/discussions",
+  loginRequired,
+  ensureCorrectUser,
+  discussionRoutes
 );
 
 app.get("/api/events", loginRequired, async function(req, res, next){
@@ -68,6 +77,23 @@ app.get("/api/events", loginRequired, async function(req, res, next){
     return next(err);
   }
 })
+
+app.get('/api/discussions', loginRequired, async function(req, res, next){
+  try {
+    let discussions = await db.Discussion.find({})
+      .sort({ createdAt: "desc"})
+      .populate("userCreated", {
+        email: true,
+        displayName: true
+      });
+      // console.log(discussions[0]);
+    return res.status(200).json(discussions);
+  } catch (err) {
+    console.log(err);
+    return next(err);
+  }
+})
+
 
 
 

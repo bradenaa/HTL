@@ -10,6 +10,8 @@ exports.createEvent = async function(req, res, next) {
       userCreated: req.params.id
     });
 
+    console.log("++++++++++++", event);
+
     console.log("=============", req.params.id);
 
     //push the users who created into the usersAttending array

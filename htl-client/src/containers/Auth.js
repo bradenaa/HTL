@@ -14,7 +14,12 @@ class Auth extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isAuthenticated: false, user: null, token: ''};
+        this.state = {
+          isAuthenticated: false,
+          user: null,
+          token: '',
+          promoCode: ''
+        };
     }
 
     logout = e => {
@@ -36,13 +41,19 @@ class Auth extends Component {
       this.props.authUser('google', response);
     };
 
+    handlePromoSubmit = (e) => {
+      e.preventDefault();
+      this.props.submitPromo(this.state.promoCode, this.props.currentUser.user.id);
+      this.setState({promoCode: ''});
+    }
+
     onFailure = (error) => {
       alert(error);
       console.log(error);
     };
 
     render() {
-        let content = !!this.props.currentUser.isAuthenticated ?
+        let content = (!!this.props.currentUser.isAuthenticated && !this.props.currentUser.hasPromo) ?
             (
               <div className='popup'>
                 <div className='popup_inner'>
@@ -57,6 +68,10 @@ class Auth extends Component {
                     {this.props.currentUser.user.id}
                   </div>
                   <div>
+                    HasPromo:
+                    {this.props.currentUser.user.hasPromo.toString()}
+                  </div>
+                  <div>
                     {this.props.currentUser.user.token}
                   </div>
                   <div>
@@ -64,10 +79,57 @@ class Auth extends Component {
                       Log out
                     </button>
                     <button onClick={this.props.closePopup}>Close</button>
+                    <br/>
+                    <form onSubmit={this.handlePromoSubmit}>
+                      <input
+                        type="text"
+                        value={this.state.promoCode}
+                        onChange={e => this.setState({ promoCode: e.target.value })}
+                      />
+                      <button type="submit">Enter Promo</button>
+                    </form>
                   </div>
                 </div>
               </div>
-            ) :
+            ) : (!!this.props.currentUser.isAuthenticated && this.props.currentUser.hasPromo) ?
+                (
+                  <div className='popup'>
+                    <div className='popup_inner'>
+                      <p>Authenticated</p>
+                      <div>
+                        {this.props.currentUser.user.name}
+                      </div>
+                      <div>
+                        {this.props.currentUser.user.email}
+                      </div>
+                      <div>
+                        {this.props.currentUser.user.id}
+                      </div>
+                      <div>
+                        HasPromo:
+                        {this.props.currentUser.user.hasPromo.toString()}
+                      </div>
+                      <div>
+                        {this.props.currentUser.user.token}
+                      </div>
+                      <div>
+                        <button onClick={this.logout} className="button">
+                          Log out
+                        </button>
+                        <button onClick={this.props.closePopup}>Close</button>
+                        <br/>
+                        {/* <form onSubmit={this.handlePromoSubmit}>
+                          <input
+                            type="text"
+                            value={this.state.promoCode}
+                            onChange={e => this.setState({ promoCode: e.target.value })}
+                          />
+                          <button type="submit">Enter Promo</button>
+                        </form> */}
+                      </div>
+                    </div>
+                  </div>
+                ) :
             (
               <div className="popup">
                 <div className="popup_inner">

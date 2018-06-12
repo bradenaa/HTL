@@ -16,12 +16,13 @@ module.exports = function () {
         function (token, tokenSecret, profile, done) {
             db.User.upsertTwitterUser(token, tokenSecret, profile, function(err, user) {
               let newUser = {};
-              newUser.name = profile.displayName;
+              newUser.displayName = profile.displayName;
               newUser.email = user.email;
               newUser.id = user._id;
+              newUser.hasPromo = user.hasPromo;
 
               // console.log("profile: ", profile);
-              console.log("1user: ", user);
+              // console.log("1user: ", user);
               return done(err, newUser);
             });
         }));
@@ -33,9 +34,10 @@ module.exports = function () {
         function (accessToken, refreshToken, profile, done) {
             db.User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
               let newUser = {};
-              newUser.name = profile.displayName;
+              newUser.displayName = profile.displayName;
               newUser.email = user.email;
               newUser.id = user._id;
+              newUser.hasPromo = user.hasPromo;
 
               // console.log("profile: ", profile);
               // console.log("user: ", user)
@@ -50,9 +52,10 @@ module.exports = function () {
         function (accessToken, refreshToken, profile, done) {
             db.User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
               let newUser = {};
-              newUser.name = profile.displayName;
+              newUser.displayName = profile.displayName;
               newUser.email = user.email;
               newUser.id = user._id;
+              newUser.hasPromo = user.hasPromo;
 
               // console.log("profile: ", profile);
               // console.log("newUser: ", newUser);

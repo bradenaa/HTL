@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import Landing from "../components/Landing";
 import FAQ from "../components/FAQ";
 import { twitterAuth, authUser } from '../store/actions/auth';
+// import { postNewDiscussion, removeDiscussion, fetchDiscussions } from '../store/actions/discussions';
 import { removeError } from '../store/actions/errors';
 import withAuth from '../hocs/withAuth';
 import Events from '../components/Events';
+import Discussion from '../components/Discussion';
 import EventForm from '../containers/EventForm';
 
 const Main = props => {
@@ -31,6 +33,10 @@ const Main = props => {
         <Route
           path="/users/:id/events/new"
           component={withAuth(EventForm, removeError)}
+        />
+        <Route
+          path="/discussion"
+          component={withAuth(Discussion)}
         />
       </Switch>
     </div>

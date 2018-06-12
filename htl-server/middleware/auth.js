@@ -31,7 +31,7 @@ exports.ensureCorrectUser = function(req, res, next) {
   try {
     const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
-      if (decoded && decoded.id === req.params.id) {
+      if (decoded && decoded.id === req.params.userID) {
         return next();
       } else {
         return next({

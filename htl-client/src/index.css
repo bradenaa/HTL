@@ -56,3 +56,10 @@ html, body, .app {
   margin: auto;
   background: white;
 }
+
+/* Discussion */
+
+.discussion-list-item {
+  border: 1px solid black;
+  list-style: none;
+}

@@ -5,14 +5,14 @@ export default function withAuth (ComponentToBeRendered, ...props) {
   class Authenticate extends Component {
     // When everything renders, we want to make sure that the user is logged in
     componentWillMount() {
-      if (!this.props.isAuthenticated) {
+      if (!this.props.isAuthenticated || !this.props.hasPromo) {
         this.props.history.push("/");
       };
     };
     // If anything changes in terms of state or props,
     // then we want to make sure to check if the user is still authenticated.
     componentWillUpdate(nextProps) {
-      if (!nextProps.isAuthenticated) {
+      if (!nextProps.isAuthenticated || !this.props.hasPromo) {
         this.props.history.push("/");
       };
     };
@@ -26,7 +26,8 @@ export default function withAuth (ComponentToBeRendered, ...props) {
 
   function mapStateToProps(state) {
     return {
-      isAuthenticated: state.currentUser.isAuthenticated
+      isAuthenticated: state.currentUser.isAuthenticated,
+      hasPromo: state.currentUser.hasPromo
     };
   };
 
