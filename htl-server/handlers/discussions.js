@@ -39,11 +39,64 @@ exports.deleteDiscussion = async function(req, res, next) {
 };
 
 // /api/user/:userID/discussions/:discussionID
-exports.getDiscussion = async function(req, res, next) {
+exports.getOneDiscussion = async function(req, res, next) {
   try {
-    let discussion = await db.Discusson.find(req.params.discussionID);
+    let discussion = await db.Discussion.findById(req.params.discussionID)
+      .populate({
+        path: "comments",
+        populate: {
+          path: 'author',
+          select: 'displayName'
+        }
+     });
     return res.status(200).json(discussion);
   } catch (err) {
+    console.log(err);
     return next(err);
   }
 };
+
+// /api/user/:userID/discussions
+exports.postCommentToDiscussion = async function(req, res, next) {
+  try {
+    // create the event with data passed from the front end
+    let comment = await db.Comment.create({
+      text: req.body.text,
+      author: req.params.userID
+    })
+
+    let foundDiscussion = await db.Discussion.findById(req.params.discussionID)
+    foundDiscussion.comments.push(comment);
+    await foundDiscussion.save();
+
+    let populatedDiscussion = await db.Discussion.findById(req.params.discussionID)
+      .populate({
+        path: "comments",
+        populate: {
+          path: 'author',
+          select: 'displayName'
+        }
+     });
+
+
+    console.log("+++++++++++", comment);
+
+    console.log("=============", foundDiscussion);
+
+    return res.status(200).json(populatedDiscussion);
+  } catch(err) {
+    console.log(err);
+    return next(err);
+  }
+}
+
+exports.removeCommentFromDiscussion = async function(req, res, next) {
+  try {
+    let foundComment = await db.Comment.findById(req.params.commentID);
+    await foundComment.remove();
+    return res.status(200).json(foundComment);
+  } catch (err) {
+    console.log(err);
+    return next(err);
+  }
+}

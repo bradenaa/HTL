@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, withRouter, Redirect, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Auth from './Auth';
 import { logout, twitterAuth, authUser, submitPromo } from '../store/actions/auth';
@@ -24,7 +24,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { logout, authUser, twitterAuth, submitPromo, errors, removeError, currentUser } = this.props;
+    const { logout, authUser, twitterAuth, submitPromo, currentUser, removeError } = this.props;
 
     return (
       <div className="nav_and_popup">
@@ -58,6 +58,7 @@ class Navbar extends Component {
                 currentUser={currentUser}
                 authUser={authUser}
                 submitPromo={submitPromo}
+                removeError={removeError}
               />
             : null
           }
@@ -74,4 +75,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, {  logout, authUser, twitterAuth, removeError, submitPromo })(Navbar));
+export default withRouter(connect(mapStateToProps, { removeError, logout, authUser, twitterAuth, submitPromo })(Navbar));

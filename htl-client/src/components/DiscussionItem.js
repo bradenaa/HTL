@@ -1,6 +1,5 @@
 import React from 'react';
-import Moment from 'react-moment';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const DiscussionItem = (
   {
@@ -9,13 +8,14 @@ const DiscussionItem = (
     title,
     post,
     userCreated,
-    isCorrectUser
+    isCorrectUser,
+    postID
   }
 ) => (
 
   <div>
     <li className="discussion-list-item">
-      <h1>{title}</h1>
+      <Link to={`/discussion/${postID}`} >{title}</Link>
       <h3>By: {userCreated.displayName}</h3>
       <h4>Post: {post}</h4>
       {isCorrectUser && (

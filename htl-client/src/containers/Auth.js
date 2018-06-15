@@ -163,13 +163,4 @@ class Auth extends Component {
     }
 }
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUser,
-    errors: state.errors
-
-  }
-}
-
-
 export default Auth;

@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
-import { postNewDiscussion } from '../store/actions/discussions'
+import { postNewCommentToDiscussion } from '../store/actions/discussions'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 
 
-class DiscussionForm extends Component {
+class CommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      post: '',
-      tags: []
+      text: '',
     }
   };
 
-  handleNewDiscussion = e => {
+  handlNewComment = e => {
     e.preventDefault();
-    console.log(this.props.postNewDiscussion);
-    this.props.postNewDiscussion(this.state);
+    this.props.postNewCommentToDiscussion(this.props.discussionID, this.state);
     this.setState({
-      title: '',
-      post: '',
-      tags: []
+      text: '',
     });
-    this.props.history.push('/discussion');
-
+    this.props.history.push(`/discussion/${this.props.discussionID}`);
   };
 
   handleChange = e => {
@@ -35,8 +29,8 @@ class DiscussionForm extends Component {
   }
 
   render() {
-    const { title, post } = this.state;
-    const { history, removeError } = this.props;
+    const { text } = this.state;
+    const { history, removeError, closePopup } = this.props;
 
 
 
@@ -44,42 +38,36 @@ class DiscussionForm extends Component {
     // if there is any change to route then we will call removeError
     // This will happen before anything is returned
     // TODO: getting a type error related to the 'listen', not sure what it is yet
-    // history.listen(() => {
-    //   removeError();
-    // })
+    history.listen(() => {
+      // debugger;
+      removeError();
+    })
 
     return (
 
       <div className='popup'>
         <div className="popup_inner">
 
-          <h1>DISCUSSION POST FORM!</h1>
+          <h1>Comment Form</h1>
 
-          <form onSubmit={this.handleNewDiscussion}>
+          <form onSubmit={this.handlNewComment}>
             {this.props.errors.message && (
               <div>
                 {this.props.errors.message}
               </div>
             )}
-            <label htmlFor="title">Title</label>
+            <label htmlFor="text">Text</label>
             <input
               type="text"
-              name="title"
-              id="title"
-              value={title}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="post">Post</label>
-            <input
-              type="text"
-              name="post"
-              value={post}
+              name="text"
+              id="text"
+              value={text}
               onChange={this.handleChange}
             />
             <button type="submit">
               Add New Post!
             </button>
-            <button onClick={this.props.closePopup}>Close</button>
+            <button onClick={closePopup}>Close</button>
           </form>
 
         </div>
@@ -94,4 +82,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { postNewDiscussion })(DiscussionForm));
+export default withRouter(connect(mapStateToProps, { postNewCommentToDiscussion })(CommentForm));

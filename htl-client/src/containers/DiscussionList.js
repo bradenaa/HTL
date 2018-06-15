@@ -16,6 +16,7 @@ class DiscussionList extends Component {
       <DiscussionItem
         removeDiscussion={removeDiscussion.bind(this, e.userCreated._id, e._id)}
         key={e._id}
+        postID={e._id}
         date={e.date}
         title={e.title}
         post={e.post}

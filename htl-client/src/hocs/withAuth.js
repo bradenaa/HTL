@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export default function withAuth (ComponentToBeRendered, ...props) {
+export default function withAuth (ComponentToBeRendered) {
   class Authenticate extends Component {
     // When everything renders, we want to make sure that the user is logged in
     componentWillMount() {
@@ -18,9 +18,9 @@ export default function withAuth (ComponentToBeRendered, ...props) {
     };
 
     render() {
-      console.log("authenticated!")
-      // console.log(...props);
-      return <ComponentToBeRendered {...props} />;
+      // console.log("authenticated!")
+      // console.log("props", this.props);
+      return <ComponentToBeRendered {...this.props} />;
     };
   };
 

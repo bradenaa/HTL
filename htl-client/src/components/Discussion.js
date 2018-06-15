@@ -39,7 +39,10 @@ class Discussion extends Component {
             : null
           }
         </div>
-        <DiscussionList />
+        <DiscussionList
+          fetchDiscussions={fetchDiscussions}
+          removeDiscussion={removeDiscussion}
+        />
       </div>
     )
   }
