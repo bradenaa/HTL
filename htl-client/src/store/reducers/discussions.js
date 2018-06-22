@@ -1,6 +1,7 @@
 import { LOAD_DISCUSSIONS, REMOVE_DISCUSSION, REMOVE_ALL } from '../actionTypes';
 
-const discussions = (state=[], action) => {
+
+const discussions = (state = [], action) => {
   switch (action.type) {
     case LOAD_DISCUSSIONS:
       return [...action.discussions]

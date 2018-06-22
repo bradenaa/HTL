@@ -10,6 +10,10 @@ exports.createDiscussion = async function(req, res, next) {
       userCreated: req.params.userID
     });
 
+    // let foundDiscussion = await db.Discussion.create({
+    //
+    // })
+
     // console.log("+++++++++++", discussion);
 
     console.log("=============", req.params.userID);
@@ -44,10 +48,21 @@ exports.getOneDiscussion = async function(req, res, next) {
     let discussion = await db.Discussion.findById(req.params.discussionID)
       .populate({
         path: "comments",
-        populate: {
-          path: 'author',
-          select: 'displayName'
-        }
+        model: 'Comment',
+        populate: [
+          {
+            path: 'author',
+            model: 'User',
+          },
+          {
+            path: 'replies',
+            model: 'Reply',
+            populate: {
+              path: "author",
+              model: "User"
+            }
+          }
+        ]
      });
     return res.status(200).json(discussion);
   } catch (err) {
@@ -95,6 +110,52 @@ exports.removeCommentFromDiscussion = async function(req, res, next) {
     let foundComment = await db.Comment.findById(req.params.commentID);
     await foundComment.remove();
     return res.status(200).json(foundComment);
+  } catch (err) {
+    console.log(err);
+    return next(err);
+  }
+}
+
+exports.postReplyToComment = async function(req, res, next) {
+  try {
+    // create the reply with the Reply model schema
+    let reply = await db.Reply.create({
+      text: req.body.text,
+      author: req.params.userID
+    });
+
+    // Find comment and push reply into the array
+    let foundComment = await db.Comment.findById(req.params.commentID)
+    foundComment.replies.push(reply);
+    await foundComment.save();
+
+    //Find the comment again and populate for the frontend
+    let populatedComment = await db.Comment.findById(req.params.commentID)
+      .populate({
+        path: "replies",
+        populate: {
+          path: 'author',
+          select: 'displayName'
+        }
+      });
+
+    console.log("++++++++++++++reply", reply);
+    console.log("==============foundComment", foundComment);
+    console.log("--------------populatedComment", populatedComment);
+
+    return res.status(200).json(populatedComment);
+
+  } catch (err) {
+    console.log(err);
+    return next(err);
+  }
+}
+
+exports.removeReplyFromComment = async function(req, res, next) {
+  try {
+    let foundReply = await db.Reply.findById(req.params.replyID);
+    await foundReply.remove();
+    return res.status(200).json(foundReply);    
   } catch (err) {
     console.log(err);
     return next(err);

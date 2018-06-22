@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchDiscussions, removeDiscussion } from '../store/actions/discussions';
+import { fetchDiscussions, removeDiscussionAndDispatch } from '../store/actions/discussions';
 import DiscussionItem from '../components/DiscussionItem';
 
 class DiscussionList extends Component {
@@ -9,27 +9,33 @@ class DiscussionList extends Component {
   }
 
   render() {
-    const { discussions, removeDiscussion, currentUser } = this.props;
+    const { discussions, removeDiscussionAndDispatch, currentUser } = this.props;
 
-    let discussionList = discussions.map( e => (
+    let discussionList = discussions.map( e => {
 
-      <DiscussionItem
-        removeDiscussion={removeDiscussion.bind(this, e.userCreated._id, e._id)}
-        key={e._id}
-        postID={e._id}
-        date={e.date}
-        title={e.title}
-        post={e.post}
-        userCreated={e.userCreated}
-        isCorrectUser={currentUser === e.userCreated._id}
-      />
-    ));
+      return (
+        <DiscussionItem
+          removeDiscussion={removeDiscussionAndDispatch.bind(this, e.userCreated._id, e._id)}
+          key={e._id}
+          postID={e._id}
+          date={e.date}
+          title={e.title}
+          post={e.post}
+          userCreated={e.userCreated}
+          isCorrectUser={currentUser === e.userCreated._id}
+        />
+      )
+    });
+
+
+
+
 
     return (
       <div>
         <ul>
           <h1>The List: </h1>
-          {discussionList}
+          {discussionList.length ? discussionList : <div>Waiting for discussions...</div>}
         </ul>
       </div>
     )
@@ -43,4 +49,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchDiscussions, removeDiscussion })(DiscussionList);
+export default connect(mapStateToProps, { fetchDiscussions, removeDiscussionAndDispatch })(DiscussionList);

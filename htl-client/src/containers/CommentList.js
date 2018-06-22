@@ -14,8 +14,10 @@ class CommentList extends Component {
         <CommentItem
           removeComment={removeCommentAndDispatch.bind(this, c.author._id, foundDiscussion._id, c._id)}
           key={c._id}
+          commentID={c._id}
           userCreated={c.author}
           comment={c.text}
+          replies={c.replies}
           isCorrectUser={currentUser.user.id === c.author._id}
         />
       )
@@ -25,7 +27,7 @@ class CommentList extends Component {
       <div>
         <ul>
           <h1>The Comment List: </h1>
-          {commentList}
+          {commentList.length ? commentList : <div>Waiting for the first comment...</div>}
         </ul>
       </div>
     )

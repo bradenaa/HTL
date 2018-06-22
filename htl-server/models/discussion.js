@@ -30,13 +30,7 @@ const discussionSchema = new mongoose.Schema(
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment',
-        replies: [
-          {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Reply"
-          }
-        ]
+        ref: 'Comment'
       },
     ]
   },

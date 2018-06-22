@@ -7,7 +7,9 @@ const {
   getOneDiscussion,
   getAllDiscussions,
   postCommentToDiscussion,
-  removeCommentFromDiscussion
+  removeCommentFromDiscussion,
+  postReplyToComment,
+  removeReplyFromComment
  } = require("../handlers/discussions");
 
 // prefix - /api/user/:userID/discussions
@@ -22,10 +24,17 @@ router
   .get(getOneDiscussion)
   .post(postCommentToDiscussion)
 
-  // prefix - /api/user/:userID/discussions
+// prefix - /api/user/:userID/discussions
 router
   .route('/:discussionID/comments/:commentID')
   .delete(removeCommentFromDiscussion)
+  .post(postReplyToComment)
+
+// prefix - /api/user/:userID/discussions
+router
+  .route('/:discussionID/comments/:commentID/replies/:replyID')
+  .delete(removeReplyFromComment)
+
 
 
 module.exports = router;

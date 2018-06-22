@@ -1,6 +1,13 @@
 import { apiCall } from '../../services/api';
 import { addError } from './errors';
-import { LOAD_DISCUSSIONS, LOAD_ONE_DISCUSSION, REMOVE_DISCUSSION, REMOVE_COMMENT } from '../actionTypes';
+import {
+  LOAD_DISCUSSIONS,
+  LOAD_ONE_DISCUSSION,
+  REMOVE_DISCUSSION,
+  REMOVE_REPLY,
+  REMOVE_COMMENT,
+  ADD_REPLY,
+ } from '../actionTypes';
 
 export const loadDiscussions = discussions => ({
   type: LOAD_DISCUSSIONS,
@@ -22,6 +29,16 @@ export const removeComment = id => ({
   id
 });
 
+export const removeReply = id => ({
+  type: REMOVE_REPLY,
+  id
+});
+
+export const addReply = reply => ({
+  type: ADD_REPLY,
+  reply
+});
+
 export const removeAll = () => ({
   type: REMOVE_DISCUSSION
 });
@@ -31,6 +48,7 @@ export const removeAll = () => ({
 // ++++++++++++++++++++++++++++++++++++++++
 
 export const removeDiscussionAndDispatch = (userID, discussionID) => {
+  console.log("discussionID: ", discussionID);
   return dispatch => {
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
       .then(() => dispatch(removeDiscussion(discussionID)))
@@ -42,6 +60,7 @@ export const fetchOneDiscussion = (userID, discussionID) => {
   return dispatch => {
     return apiCall('get', `/api/user/${userID}/discussions/${discussionID}`)
       .then(res => {
+        console.log("one discussion", res);
         dispatch(loadOneDiscussion(res));
       })
       .catch(err => dispatch(addError(err.message)))
@@ -75,7 +94,7 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
 // ============ COMMENTS ==================
 // ++++++++++++++++++++++++++++++++++++++++
 
-export const postNewCommentToDiscussion = ( discussionID, data )  => (dispatch, getState) => {
+export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, getState) => {
   console.log("comment data", data);
 
   // sets the currentUser to the current state in the redux store
@@ -94,4 +113,35 @@ export const removeCommentAndDispatch = (userID, discussionID, commentID) => {
       .then(() => dispatch(removeComment(commentID)))
       .catch(err => dispatch(addError(err.message)))
   };
+};
+
+// ++++++++++++++++++++++++++++++++++++++++
+// ============ COMMENT REPLY =============
+// ++++++++++++++++++++++++++++++++++++++++
+
+export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState) => {
+  let { currentUser, oneDiscussion } = getState();
+  const userID = currentUser.user.id;
+  const discussionID = oneDiscussion._id;
+  console.log(discussionID);
+
+  return apiCall('post', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}`, data)
+    .then(res => {
+      console.log(res);
+      dispatch(addReply(res));
+    })
+    .catch(err => dispatch(addError(err.message)))
+}
+
+
+
+export const removeReplyAndDispatch = (commentID, replyID) => (dispatch, getState) => {
+  let { currentUser, oneDiscussion } = getState();
+  const userID = currentUser.user.id;
+  const discussionID = oneDiscussion._id;
+
+    return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}/replies/${replyID}`)
+      .then(() => dispatch(removeReply(replyID)))
+      .catch(err => dispatch(addError(err.message)))
+
 };

@@ -86,7 +86,7 @@ app.get('/api/discussions', loginRequired, async function(req, res, next){
         email: true,
         displayName: true
       });
-      // console.log(discussions[0]);
+      console.log(discussions);
     return res.status(200).json(discussions);
   } catch (err) {
     console.log(err);
