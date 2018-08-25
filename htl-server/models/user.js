@@ -58,16 +58,14 @@ const userSchema = new mongoose.Schema({
 userSchema.set('toJSON', {getters: true, virtuals: true});
 
 userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
-    var that = this;
-    // console.log(profile);
+  var that = this;
+  // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
     return this.findOne({
       $or: [
         { 'twitterProvider.id': profile.id },
         { 'email': profile.emails[0].value }
       ]
-
     }, function(err, user) {
-        // console.log("user found as: ", user);
         // no user was found, lets create a new one
         if (!user) {
             var newUser = new that({
@@ -85,7 +83,6 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
                 if (error) {
                     console.log(error);
                 }
-                // console.log("new user saved as: ", savedUser);
                 return cb(error, savedUser);
             });
         } else {
@@ -95,7 +92,8 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
 };
 
 userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profile, cb) {
-    var that = this;
+  var that = this;
+  // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
     return this.findOne({
       $or: [
         { 'googleProvider.id': profile.id },
@@ -103,7 +101,6 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
       ]
     }, function(err, user) {
         // no user was found, lets create a new one
-        // console.log("user:", user)
         if (!user) {
             var newUser = new that({
                 email: profile.emails[0].value,
@@ -119,7 +116,6 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
                 if (error) {
                     console.log(error);
                 }
-                // console.log("new user saved as: ", savedUser);
                 return cb(error, savedUser);
             });
         } else {
@@ -128,8 +124,10 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
     });
 };
 
+// FB specific function to create a user
 userSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
-    var that = this;
+  var that = this;
+  // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
     return this.findOne({
       $or: [
         { 'facebookProvider.id': profile.id },
@@ -137,23 +135,21 @@ userSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, c
       ]
     }, function(err, user) {
         // no user was found, lets create a new one
-        // console.log("user:", user)
         if (!user) {
             var newUser = new that({
                 email: profile.emails[0].value,
-                googleProvider: {
+                facebookProvider: {
                     id: profile.id,
                     username: profile.displayName,
                     token: accessToken,
                 },
                 hasPromo: false
             });
-
+            // Save the newly created user
             newUser.save(function(error, savedUser) {
                 if (error) {
                     console.log(error);
                 }
-                // console.log("new user saved as: ", savedUser);
                 return cb(error, savedUser);
             });
         } else {

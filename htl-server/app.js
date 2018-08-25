@@ -10,19 +10,28 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const db = require("./models");
 
-// Routes
+// ======================================
+// ============== ROUTES ================
+// ======================================
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events');
 const discussionRoutes = require('./routes/discussions');
 
-// Handlers
+// ======================================
+// ============== Handlers ==============
+// ======================================
 const errorHandler = require('./handlers/error');
 
-// Middleware
+// ======================================
+// ============= Middleware =============
+// ======================================
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
+
+// Initializing the app
 const app = express();
 
+// Setting CORS options for front end communication purposes
 const corsOptions = {
   origin: true,
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
@@ -31,7 +40,9 @@ const corsOptions = {
 };
 app.use(cors());
 
-// view engine setup
+// ======================================
+// ============ VIEW ENGINE =============
+// ======================================
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -94,11 +105,10 @@ app.get('/api/discussions', loginRequired, async function(req, res, next){
   }
 })
 
+// ======================================
+// =========== Error Handler ============
+// ======================================
 
-
-
-
-// // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

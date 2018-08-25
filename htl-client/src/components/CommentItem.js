@@ -20,6 +20,14 @@ class CommentItem extends Component {
     });
   }
 
+  handleReplySubmit = e => {
+    e.preventDefault();
+    this.setState({
+      showReplies: true,
+      showReplyForm: false
+    })
+  }
+
   toggleReplyForm = e => {
     e.preventDefault();
     this.setState({
@@ -34,7 +42,9 @@ class CommentItem extends Component {
       comment,
       replies,
       isCorrectUser,
-      commentID
+      commentID,
+      discussionID,
+      removeError
     } = this.props;
 
     return(
@@ -56,12 +66,16 @@ class CommentItem extends Component {
           { this.state.showReplyForm &&
             <ReplyForm
               commentID={commentID}
+              discussionID={discussionID}
+              removeError={removeError}
+              handleReplySubmit={this.handleReplySubmit}
             />
           }
           { this.state.showReplies &&
             <ReplyList
               replies={replies}
               commentID={commentID}
+              removeError={removeError}
             />
           }
 

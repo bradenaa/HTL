@@ -9,7 +9,7 @@ class ReplyForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      text: ''
     }
   };
 
@@ -19,6 +19,7 @@ class ReplyForm extends Component {
     this.setState({
       text: '',
     });
+    this.props.handleReplySubmit(e);
     // this.props.history.push(`/discussion/${this.props.discussionID}`);
   };
 
@@ -30,7 +31,7 @@ class ReplyForm extends Component {
 
   render() {
     const { text } = this.state;
-    const { history, removeError, commentID } = this.props;
+    const { history, removeError, commentID, handleReplySubmit } = this.props;
 
 
 

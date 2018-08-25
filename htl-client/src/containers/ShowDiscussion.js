@@ -37,7 +37,7 @@ class ShowDiscussion extends Component {
 
 
   // console.log("foundDiscussion", foundDiscussion);
-  // console.log("foundDiscussionC", foundDiscussion.comments);
+  // console.log("foundDiscussionC", foundDiscussion.comments)
 
     return (
       <div>

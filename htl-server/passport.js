@@ -21,8 +21,6 @@ module.exports = function () {
               newUser.id = user._id;
               newUser.hasPromo = user.hasPromo;
 
-              // console.log("profile: ", profile);
-              // console.log("1user: ", user);
               return done(err, newUser);
             });
         }));
@@ -39,8 +37,6 @@ module.exports = function () {
               newUser.id = user._id;
               newUser.hasPromo = user.hasPromo;
 
-              // console.log("profile: ", profile);
-              // console.log("user: ", user)
               return done(err, newUser);
             });
         }));
@@ -57,8 +53,6 @@ module.exports = function () {
               newUser.id = user._id;
               newUser.hasPromo = user.hasPromo;
 
-              // console.log("profile: ", profile);
-              // console.log("newUser: ", newUser);
               return done(err, newUser);
             });
         }));

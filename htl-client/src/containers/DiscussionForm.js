@@ -17,7 +17,6 @@ class DiscussionForm extends Component {
 
   handleNewDiscussion = e => {
     e.preventDefault();
-    console.log(this.props.postNewDiscussion);
     this.props.postNewDiscussion(this.state);
     this.setState({
       title: '',
@@ -37,7 +36,6 @@ class DiscussionForm extends Component {
   render() {
     const { title, post } = this.state;
     const { history, removeError } = this.props;
-
 
 
 

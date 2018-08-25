@@ -3,8 +3,6 @@ import { postNewCommentToDiscussion } from '../store/actions/discussions'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-
-
 class CommentForm extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +17,7 @@ class CommentForm extends Component {
     this.setState({
       text: '',
     });
-    this.props.history.push(`/discussion/${this.props.discussionID}`);
+    // this.props.history.push(`/discussion/${this.props.discussionID}`);
   };
 
   handleChange = e => {

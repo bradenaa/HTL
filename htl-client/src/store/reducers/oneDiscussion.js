@@ -9,13 +9,28 @@ const oneDiscussion = (state = DEFAULT_STATE, action) => {
     case LOAD_ONE_DISCUSSION:
       return {...action.oneDiscussion};
     case REMOVE_COMMENT:
-      return state.filter(m => m.comments._id !== action.id);
+      let newState = state;
+      let newComments = state.comments.filter(m => m.comments._id !== action.id);
+      newState.comments = newComments;
+      return newState;
     case REMOVE_REPLY:
-      return state.filter(m => m.comments.replies._id !== action.id);
+      return state.comments.filter(m => m.comments.replies._id !== action.id);
     case ADD_REPLY:
-      let newObj = state;
-      newObj.comments.replies.push(action);
-      return newObj;
+    // takes the old state and updates the comments array
+    // to include the new reply associated with that comment
+      console.log("current state: ", state);
+      let newStateForReply = state;
+      let newReplies = newStateForReply.comments.map(c => {
+          if (c._id === action.data.commentID) {
+            // console.log("found the associated comment:", c._id)
+            console.log("attemping to push in: ", action.data.reply)
+            c.replies.push(action.data.reply)
+          }
+          return c;
+      })
+      newStateForReply.comments = newReplies;
+      console.log("attempting to update state to: ", newStateForReply);
+      return newStateForReply;
     case REMOVE_ALL:
       return {};
     default:

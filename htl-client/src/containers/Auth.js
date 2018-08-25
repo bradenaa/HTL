@@ -3,13 +3,6 @@ import TwitterLogin from 'react-twitter-auth';
 import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
 
-// import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { authUser } from '../store/actions/auth';
-// import { removeError } from '../store/actions/errors';
-
-
-
 class Auth extends Component {
 
     constructor(props) {
@@ -157,7 +150,7 @@ class Auth extends Component {
 
         return (
             <div className="App">
-                {content}
+              {content}
             </div>
         );
     }

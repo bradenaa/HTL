@@ -23,6 +23,14 @@ export function setAuthorizationToken(token) {
   setTokenHeader(token);
 }
 
+/**
+* Handles the initial request response from Facebook and Google
+* Passes accessToken in form of a Blob to the backend to complete authentication
+* The respose from the backend is either an error or an authenticated JWT token
+* JWT token is stored in local storage and User information dispatched to setCurrentUser
+* @param {string} type social media provider name (lowercase)
+* @param {object} response reponse from the social media API call
+**/
 export function authUser(type, response){
   return dispatch => {
     // wrap our thunk in a promise so that we can wait for the API call
@@ -41,14 +49,10 @@ export function authUser(type, response){
       fetch(`http://localhost:8081/api/auth/${type}`, options)
         .then(user => user.json())
         .then(user => {
-          // sets the token in the local storage
           localStorage.setItem("jwtToken", user.token);
-          // gives an authorization header of Bearer plus token
           setAuthorizationToken(user.token);
-          // calls the setCurrentUser action, and passes the user that was responded
           console.log("user: ", user);
           dispatch(setCurrentUser(user));
-          // because there was no error, we want to go ahead and remove any error that may be currently set in the state, so we call the removeError action
           dispatch(removeError());
           resolve(); // indicate that the API call succeeded
         })
@@ -64,27 +68,19 @@ export function authUser(type, response){
   }
 }
 
-
 export function twitterAuth(response) {
   return dispatch => {
     return new Promise((resolve, reject) => {
       return response.json().then(user => {
-        // sets the token into the localStorage
         localStorage.setItem("jwtToken", user.token);
-        // gives an authorization header of Bearer plus token - to be decoded on backendside
         setAuthorizationToken(user.token);
-        // will call the setCurrentUser action, and passes the user object
         console.log("user: ", user);
         dispatch(setCurrentUser(user));
-        // because there was no error, we want to go ahead and remove errors
         dispatch(removeError());
         resolve();
       })
       .catch(err => {
         console.log(err);
-        // add the error by calling the addError action
-        // which is passed to the state and then to the props through
-        // mapStateToProps
         dispatch(addError(err.message));
         reject();
       })
@@ -92,11 +88,17 @@ export function twitterAuth(response) {
   }
 }
 
+/**
+* makes a request to the backend to check on promo submitted
+* response is only 200 if Promo is confirmed
+* @param {string} promo string submitted by the user
+* @param {string} user_id ID of the currentUser
+**/
 export const submitPromo = (promo, user_id) => {
   return dispatch => {
     return apiCall('put', `api/auth/users/${user_id}/promo/${promo}`)
       .then(res => {
-        console.log(res);
+        console.log("promo response: ",res);
         localStorage.setItem("jwtToken", res.token)
         setAuthorizationToken(res.token);
         dispatch(setCurrentUser(res));
@@ -108,15 +110,15 @@ export const submitPromo = (promo, user_id) => {
   }
 }
 
-
+/**
+* Removes JWT from localStorage
+* Sets auth header to false for future backend requests
+* dispatches an empty object to remove currentUser information
+**/
 export function logout() {
   return dispatch => {
-    // removes the token from local storage
     localStorage.clear();
-    // removes the token from request headers
     setAuthorizationToken(false);
-    // sets the currentUser state to an empty object
-    // which will make isAuthenticated to be falsey
     dispatch(setCurrentUser({}));
   }
 }

@@ -24,6 +24,7 @@ if(localStorage.jwtToken) {
 }
 
 const App = () => (
+  // Wrapping containers in the store and with the reat-redux router, to initialize the use
   <Provider store={store}>
     <Router>
       <div className='application'>

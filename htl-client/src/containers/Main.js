@@ -10,10 +10,9 @@ import Discussion from '../components/Discussion';
 import ShowDiscussion from '../containers/ShowDiscussion';
 import EventForm from '../containers/EventForm';
 
+// Main container that will use router to provide navigation throughout the main application
 const Main = props => {
-
   const { removeError, currentUser } = props;
-
   return (
     <div className="container">
       <Switch>

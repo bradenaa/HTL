@@ -2,6 +2,10 @@ const request = require("request");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 
+/**
+* Front end calls this route then the request token call to the Twitter API is initialized
+* Creates JSON object
+**/
 exports.twitterRequestToken = function(req, res) {
     request.post({
         url: 'https://api.twitter.com/oauth/request_token',
@@ -12,7 +16,6 @@ exports.twitterRequestToken = function(req, res) {
         }
     }, function (err, r, body) {
         if (err) {
-            // return res.send(500, { message: err.message });
           return next({
             status: 500,
             message: err.message
@@ -23,6 +26,11 @@ exports.twitterRequestToken = function(req, res) {
     });
 }
 
+/**
+* Front end calls this route then the access token call to the Twitter API is initialized
+* Sets headers to be the appropriate token and secret
+* Calls next to move to passport strategy
+**/
 exports.twitterAccessToken = (req, res, next) => {
     request.post({
         url: `https://api.twitter.com/oauth/access_token?oauth_verifier`,
@@ -39,32 +47,26 @@ exports.twitterAccessToken = (req, res, next) => {
               message: err.message
             });
         }
-
-        console.log(body);
-
         const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
         const parsedBody = JSON.parse(bodyString);
 
         req.body['oauth_token'] = parsedBody.oauth_token;
         req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
         req.body['user_id'] = parsedBody.user_id;
-
         next();
     });
 }
 
 exports.login = function(req, res, next) {
-  //handle if user wasn't passed
+  // Handle if user wasn't passed in previous step
     if (!req.user) {
         return next({
           status: 401,
           message: 'User Not Authenticated'
         });
     }
-
-    // console.log("login user: ", req.user);
+    // Create JWT token
     let { displayName, email, id, hasPromo } = req.user;
-    // create token
     let token = jwt.sign({
       displayName,
       email,
@@ -74,7 +76,7 @@ exports.login = function(req, res, next) {
     {
       expiresIn: 60 * 120
     });
-
+    // pass the authenticated user and token to be handled by the front end
     return res.status(200).json({
       displayName,
       email,
@@ -82,20 +84,20 @@ exports.login = function(req, res, next) {
       hasPromo,
       token
     })
-
 }
 
 exports.promoHandler = async function(req, res, next){
   try {
+    // Find user by ID
     let foundUser = await db.User.findById(req.params.userID);
+    // If user promo correct, then update profile and save
     if (req.params.promoCode === 'htl') {
       foundUser.hasPromo = true;
       await foundUser.save();
-      console.log("from the promocode: ", foundUser);
-      // console.log("login user: ", req.user);
+
+      // Create new token and send to frontend
       let { displayName, email, hasPromo } = foundUser;
       let id = foundUser._id;
-      // create token
       let token = jwt.sign({
         displayName,
         email,
@@ -105,8 +107,6 @@ exports.promoHandler = async function(req, res, next){
       {
         expiresIn: 60 * 120
       });
-
-      console.log("token: ", token);
       return res.status(200).json({
         displayName,
         email,
@@ -114,8 +114,8 @@ exports.promoHandler = async function(req, res, next){
         hasPromo,
         token
       })
-
     }
+    // Handle if promo code is incorrect
     return next({
       status: 400,
       message: 'This promo code is not correct'

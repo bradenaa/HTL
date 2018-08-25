@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { fetchDiscussions, removeDiscussionAndDispatch } from '../store/actions/discussions';
 import DiscussionItem from '../components/DiscussionItem';
 
+//
 class DiscussionList extends Component {
+
   componentDidMount() {
     this.props.fetchDiscussions();
   }
@@ -26,10 +28,6 @@ class DiscussionList extends Component {
         />
       )
     });
-
-
-
-
 
     return (
       <div>

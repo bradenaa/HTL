@@ -4,6 +4,7 @@ import DiscussionForm from '../containers/DiscussionForm'
 import { postNewDiscussion, fetchDiscussions, removeDiscussion } from '../store/actions/discussions';
 
 
+// The main discussion component that returns a list of discussions and a way to toggle a form to make a new discussion
 class Discussion extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +21,7 @@ class Discussion extends Component {
   }
 
   render() {
-
-
+    
     return (
       <div>
         <h1>Discussion Page</h1>
@@ -34,7 +34,6 @@ class Discussion extends Component {
               <DiscussionForm
                 closePopup={this.togglePopup}
                 postNewDiscussion={postNewDiscussion}
-                // currentUser={currentUser}
               />
             : null
           }
@@ -47,6 +46,5 @@ class Discussion extends Component {
     )
   }
 }
-
 
 export default Discussion;
