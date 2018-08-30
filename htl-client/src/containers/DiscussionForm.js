@@ -37,8 +37,6 @@ class DiscussionForm extends Component {
     const { title, post } = this.state;
     const { history, removeError } = this.props;
 
-
-
     // if there is any change to route then we will call removeError
     // This will happen before anything is returned
     // TODO: getting a type error related to the 'listen', not sure what it is yet

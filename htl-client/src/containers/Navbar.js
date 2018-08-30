@@ -6,8 +6,6 @@ import { logout, twitterAuth, authUser, submitPromo } from '../store/actions/aut
 import { removeError } from '../store/actions/errors';
 
 
-
-
 class Navbar extends Component {
   constructor(props) {
     super(props);

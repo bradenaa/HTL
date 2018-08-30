@@ -28,7 +28,7 @@ class CommentList extends Component {
     return (
       <div>
         <ul>
-          <h1>The Comment List: </h1>
+          <h1 className="commentHeading">The Comment List: </h1>
           {commentList.length ? commentList : <div>Waiting for the first comment...</div>}
         </ul>
       </div>

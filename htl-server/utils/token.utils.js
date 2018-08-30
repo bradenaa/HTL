@@ -1,3 +1,5 @@
+// This logic is unused at this point, as the token handling is being taken care of directly in handlers/auth.js
+
 var jwt = require('jsonwebtoken');
 
 var createToken = function(auth) {

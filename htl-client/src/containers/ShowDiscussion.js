@@ -4,7 +4,7 @@ import { removeError } from '../store/actions/errors';
 import { connect } from 'react-redux';
 import CommentList from '../containers/CommentList'
 import CommentForm from '../containers/CommentForm'
-
+import ReactDOM from "react-dom"
 
 class ShowDiscussion extends Component {
   constructor(props) {
@@ -34,10 +34,6 @@ class ShowDiscussion extends Component {
   render() {
 
   const { match, foundDiscussion, currentUser } = this.props;
-
-
-  // console.log("foundDiscussion", foundDiscussion);
-  // console.log("foundDiscussionC", foundDiscussion.comments)
 
     return (
       <div>

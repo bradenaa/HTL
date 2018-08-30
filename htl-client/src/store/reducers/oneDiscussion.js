@@ -23,8 +23,8 @@ const oneDiscussion = (state = DEFAULT_STATE, action) => {
       let newReplies = newStateForReply.comments.map(c => {
           if (c._id === action.data.commentID) {
             // console.log("found the associated comment:", c._id)
-            console.log("attemping to push in: ", action.data.reply)
-            c.replies.push(action.data.reply)
+            console.log("attemping to push in: ", action.data.foundReply)
+            c.replies.push(action.data.foundReply)
           }
           return c;
       })

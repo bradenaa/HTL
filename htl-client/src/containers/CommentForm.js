@@ -17,6 +17,7 @@ class CommentForm extends Component {
     this.setState({
       text: '',
     });
+    this.props.closePopup(e);
     // this.props.history.push(`/discussion/${this.props.discussionID}`);
   };
 
@@ -29,9 +30,6 @@ class CommentForm extends Component {
   render() {
     const { text } = this.state;
     const { history, removeError, closePopup } = this.props;
-
-
-
 
     // if there is any change to route then we will call removeError
     // This will happen before anything is returned

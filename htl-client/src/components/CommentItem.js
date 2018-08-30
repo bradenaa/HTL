@@ -13,6 +13,8 @@ class CommentItem extends Component {
     }
   }
 
+  // TODO: Need to manage the replylist better. When a reply is left the state is not updating properly.
+
   toggleReplies = e => {
     e.preventDefault();
     this.setState({
@@ -46,6 +48,7 @@ class CommentItem extends Component {
       discussionID,
       removeError
     } = this.props;
+
 
     return(
       <div>

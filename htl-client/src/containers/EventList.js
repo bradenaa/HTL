@@ -10,8 +10,6 @@ class EventList extends Component {
 
   render() {
     const { events, removeEvent, joinEvent, currentUser } = this.props;
-    // console.log(currentUser);
-    // console.log(typeof currentUser);
     let eventList = events.map(e => (
 
       <EventItem

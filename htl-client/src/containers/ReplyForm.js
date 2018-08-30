@@ -20,6 +20,7 @@ class ReplyForm extends Component {
       text: '',
     });
     this.props.handleReplySubmit(e);
+    // TODO: make sure that the state is updating appropriately and updating the components that it is passed to
     // this.props.history.push(`/discussion/${this.props.discussionID}`);
   };
 
@@ -33,14 +34,10 @@ class ReplyForm extends Component {
     const { text } = this.state;
     const { history, removeError, commentID, handleReplySubmit } = this.props;
 
-
-
-
     // if there is any change to route then we will call removeError
     // This will happen before anything is returned
     // TODO: getting a type error related to the 'listen', not sure what it is yet
     history.listen(() => {
-      // debugger;
       removeError();
     })
 
