@@ -11,6 +11,9 @@ import ShowDiscussion from '../containers/ShowDiscussion';
 import EventForm from '../containers/EventForm';
 
 // Main container that will use router to provide navigation throughout the main application
+//TODO: clean up the rest of the DOM tree to be appropriately container or component. Discussion section first
+//TODO: Write up propTypes or look into typescript for prop handling on the containers and components.
+
 const Main = props => {
   const { removeError, currentUser } = props;
   return (
