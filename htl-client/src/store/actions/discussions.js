@@ -3,6 +3,7 @@ import { addError } from './errors';
 import {
   LOAD_DISCUSSIONS,
   LOAD_ONE_DISCUSSION,
+  ADD_DISCUSSION,
   REMOVE_DISCUSSION,
   REMOVE_REPLY,
   REMOVE_COMMENT,
@@ -18,14 +19,19 @@ export const loadDiscussions = discussions => ({
   discussions
 });
 
+export const addDiscussionToState = data => ({
+  type: ADD_DISCUSSION,
+  data
+})
+
+export const removeDiscussionFromState = id => ({
+  type: REMOVE_DISCUSSION,
+  id
+});
+
 export const loadOneDiscussion = oneDiscussion => ({
   type: LOAD_ONE_DISCUSSION,
   oneDiscussion
-});
-
-export const removeDiscussion = id => ({
-  type: REMOVE_DISCUSSION,
-  id
 });
 
 export const removeComment = id => ({
@@ -58,7 +64,7 @@ export const removeAll = () => ({
 * @param {string} userID currentUser ID obtained from the store
 * @param {string} discussionID the id of the DiscussionItem component
 **/
-export const removeDiscussionAndDispatch = (userID, discussionID) => {
+export const removeDiscussion = (userID, discussionID) => {
   return dispatch => {
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
       .then(() => dispatch(removeDiscussion(discussionID)))
@@ -94,6 +100,7 @@ export const fetchDiscussions = () => {
   };
 };
 
+//TODO: get response to match that of the data structure on the front-end
 /**
 * Thunk that returns API call which is posting new discussion to the backend
 * Will not dispatch except from an error
@@ -103,7 +110,10 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
   let { currentUser } = getState();
   const userID = currentUser.user.id;
   return apiCall('post', `/api/user/${userID}/discussions`, data)
-    .then(res => console.log("New Discussion: ", res))
+    .then(res => {
+      console.log("New Discussion: ", res);
+      // dispatch(addDiscussionToState())
+    })
     .catch(err => dispatch(addError(err.message)))
 }
 

@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 module.exports = function () {
 
-    var db = mongoose.connect('mongodb://localhost:27017/HTL_MAIN_APP2');
+    // var db = mongoose.connect('mongodb://localhost:27017/htl-postNewDiscussion');
 
     // var UserSchema = new Schema({
     //     email: {

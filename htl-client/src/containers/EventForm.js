@@ -38,7 +38,7 @@ class EventForm extends Component {
 
   render() {
     const { title, neighborhood, date } = this.state;
-    const { history, removeError } = this.props;
+    // const { history, removeError } = this.props;
 
 
     // if there is any change to route then we will call removeError
