@@ -6,7 +6,7 @@ const discussions = (state = [], action) => {
     case LOAD_DISCUSSIONS:
       return [...action.discussions]
     case ADD_DISCUSSION:
-      return
+      return [...state, action.discussion]
     case REMOVE_DISCUSSION:
       return state.filter(m => m._id !== action.id)
     case REMOVE_ALL:

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CreateDiscussionForm from './CreateDiscussionForm'
+import CreateDiscussionFormContainer from '../../containers/discussion/CreateDiscussionFormContainer'
 import DiscussionList from './DiscussionList'
 
 class Discussions extends Component {
@@ -19,13 +19,12 @@ class Discussions extends Component {
 
 
   render() {
-
     // console.log("DiscussionsComponent - PROPS");
     // console.log(this.props);
+    console.log("Discussions Rendered");
 
     const { showCreateDiscussionForm } = this.state;
-    const { discussions, fetchDiscussions, postNewDiscussion, removeDiscussion, currentUser, } = this.props;
-
+    const { discussions, fetchDiscussions, removeDiscussion, currentUser, } = this.props;
 
     return (
       <div>
@@ -36,9 +35,8 @@ class Discussions extends Component {
         <div className="popup_container">
           {
             showCreateDiscussionForm ?
-              <CreateDiscussionForm
+              <CreateDiscussionFormContainer
                 closePopup={this.toggleCreateForm}
-                postNewDiscussion={postNewDiscussion}
               />
             : null
           }

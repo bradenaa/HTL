@@ -12,7 +12,16 @@ exports.createDiscussion = async function(req, res, next) {
       post: req.body.post,
       userCreated: req.params.userID
     });
-    return res.status(200).json(discussion);
+
+    let foundDiscussion = await db.Discussion.findById(discussion._id)
+      .populate({
+        path:"userCreated",
+        model: "User"
+      });
+
+    console.log('discussion response on the BACKEND', discussion);
+    console.log('foundDiscussion response on the BACKEND', foundDiscussion);
+    return res.status(200).json(foundDiscussion);
   } catch(err) {
     console.log(err);
     return next(err);

@@ -19,9 +19,9 @@ export const loadDiscussions = discussions => ({
   discussions
 });
 
-export const addDiscussionToState = data => ({
+export const addDiscussionToState = discussion => ({
   type: ADD_DISCUSSION,
-  data
+  discussion
 })
 
 export const removeDiscussionFromState = id => ({
@@ -65,6 +65,9 @@ export const removeAll = () => ({
 * @param {string} discussionID the id of the DiscussionItem component
 **/
 export const removeDiscussion = (userID, discussionID) => {
+  console.log("userID", userID);
+  console.log("discussionID", discussionID);
+
   return dispatch => {
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
       .then(() => dispatch(removeDiscussion(discussionID)))
@@ -81,9 +84,7 @@ export const removeDiscussion = (userID, discussionID) => {
 export const fetchOneDiscussion = (userID, discussionID) => {
   return dispatch => {
     return apiCall('get', `/api/user/${userID}/discussions/${discussionID}`)
-      .then(res => {
-        dispatch(loadOneDiscussion(res));
-      })
+      .then(res => dispatch(loadOneDiscussion(res)))
       .catch(err => dispatch(addError(err.message)))
   };
 };
@@ -91,12 +92,11 @@ export const fetchOneDiscussion = (userID, discussionID) => {
 // Thunk that returns an API call, which retrieves all discussions from backend
 // and then dispatches the responding data to the discussions.js reducer
 export const fetchDiscussions = () => {
+  console.log("Fetch discussions was called");
   return dispatch => {
     return apiCall("get", '/api/discussions')
-      .then(res => {
-        dispatch(loadDiscussions(res));
-      })
-      .catch(err => dispatch(addError(err.message)));
+      .then(res => dispatch(loadDiscussions(res)))
+      .catch(err => dispatch(addError(err.message)))
   };
 };
 
@@ -110,10 +110,7 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
   let { currentUser } = getState();
   const userID = currentUser.user.id;
   return apiCall('post', `/api/user/${userID}/discussions`, data)
-    .then(res => {
-      console.log("New Discussion: ", res);
-      // dispatch(addDiscussionToState())
-    })
+    .then(res => dispatch(addDiscussionToState(res)))
     .catch(err => dispatch(addError(err.message)))
 }
 
@@ -131,9 +128,7 @@ export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, g
   let { currentUser } = getState();
   const userID = currentUser.user.id;
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}`, data)
-    .then(res => {
-      dispatch(loadOneDiscussion(res));
-    })
+    .then(res => dispatch(loadOneDiscussion(res)))
     .catch(err => dispatch(addError(err.message)))
 }
 

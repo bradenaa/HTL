@@ -1,44 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DiscussionItem from './DiscussionItem'
 
-class DiscussionList extends Component {
+const DiscussionList = (props) => {
 
+  // console.log("DiscussionList - PROPS");
+  // console.log(this.props);
 
-  //TODO: Find the best way to pass helper functions down as props
-  //TODO: Look into the best way to handle TODOS in the future
-  //TODO: Write PropTypes for explicitness. Maybe start to setup TypeScript
+  const { discussions, removeDiscussion, currentUser } = props;
 
-  componentDidMount() {
-    this.props.fetchDiscussions();
-  }
+  console.log("The discussionList rendered", discussions);
+  console.log("----------------------------------------")
 
-  render() {
-    // console.log("DiscussionList - PROPS");
-    // console.log(this.props);
-
-    const { discussions, removeDiscussion, currentUser } = this.props;
-
-    let discussionList = discussions.map( d => {
-      return (
-          <DiscussionItem
-            key={d._id}
-            postID={d._id}
-            date={d.date}
-            title={d.title}
-            post={d.post}
-            userCreated={d.userCreated}
-            isCorrectUser={currentUser.id === d.userCreated._id}
-            removeDiscussion={removeDiscussion.bind(this, d.userCreated._id, d._id)}
-          />
-      )
-    })
-
+  //TODO: Find out why removeDiscussion is running twice when button is clicked on DiscussionItem
+  let discussionList = discussions.map( d => {
     return (
-      <div>
-        {discussionList.length ? discussionList : <div>Waiting for discussions...</div>}
-      </div>
+        <DiscussionItem
+          key={d._id}
+          postID={d._id}
+          date={d.date}
+          title={d.title}
+          post={d.post}
+          userCreated={d.userCreated}
+          isCorrectUser={currentUser.id === d.userCreated._id}
+          removeDiscussion={removeDiscussion.bind(this, d.userCreated._id, d._id)}
+        />
     )
-  }
+  })
+
+  return (
+    <div>
+      {discussionList.length ? discussionList : <div>Waiting for discussions...</div>}
+    </div>
+  )
 }
 
 export default DiscussionList;
