@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDiscussions, removeDiscussion } from '../../store/actions/discussions';
+import { removeDiscussion, fetchDiscussions } from '../../store/actions/discussions';
 import DiscussionList from '../../components/discussion/DiscussionList'
 
 //TODO: Find the best way to pass helper functions down as props - COMPLETED
@@ -9,12 +10,18 @@ import DiscussionList from '../../components/discussion/DiscussionList'
 
 class DiscussionListContainer extends Component {
 
+  static propTypes = {
+    currentUser: PropTypes.object,
+    discussionsArr: PropTypes.array,
+    fetchDiscussions: PropTypes.func,
+    removeDiscussion: PropTypes.func,
+  }
+
   componentDidMount() {
     this.props.fetchDiscussions();
   }
 
   render() {
-
     return(
       <DiscussionList
         {...this.props}
@@ -24,13 +31,10 @@ class DiscussionListContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("DiscussionContainer - STATE");
-  // console.log(state);
   return {
-    ...state,
-    discussions: state.discussions,
+    discussionsArr: state.discussions.discussionsArr,
     currentUser: state.currentUser.user,
   }
 }
 
-export default connect(mapStateToProps, { fetchDiscussions, removeDiscussion })(DiscussionListContainer)
+export default connect(mapStateToProps, { removeDiscussion, fetchDiscussions })(DiscussionListContainer)

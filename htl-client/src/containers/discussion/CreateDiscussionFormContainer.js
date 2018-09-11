@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { postNewDiscussion } from '../../store/actions/discussions'
+import { postNewDiscussion, toggleDiscussionForm } from '../../store/actions/discussions'
 import CreateDiscussionForm from '../../components/discussion/CreateDiscussionForm'
 
 class CreateDiscussionFormContainer extends Component {
@@ -14,18 +14,16 @@ class CreateDiscussionFormContainer extends Component {
   };
 
   handleNewDiscussion = e => {
-    debugger;
+    // debugger;
     e.preventDefault();
     this.props.postNewDiscussion(this.state);
-    debugger;
+    // debugger;
     this.setState({
       title: '',
       post: '',
       tags: []
     });
-    debugger;
-    this.props.closePopup(e);
-    debugger;
+    // debugger;
   };
 
   handleChange = e => {
@@ -35,16 +33,14 @@ class CreateDiscussionFormContainer extends Component {
   }
 
   render() {
-    const { closePopup } = this.props;
     const { title, post } = this.state;
-
-    console.log('CreateDiscussionFormContainer Rendered');
+    const { toggleDiscussionForm } = this.props;
 
     return (
       <CreateDiscussionForm
         handleNewDiscussion={this.handleNewDiscussion}
+        toggleDiscussionForm={toggleDiscussionForm}
         handleChange={this.handleChange}
-        closePopup={closePopup}
         title={title}
         post={post}
       />
@@ -53,4 +49,4 @@ class CreateDiscussionFormContainer extends Component {
 }
 
 
-export default connect(null, { postNewDiscussion })(CreateDiscussionFormContainer);
+export default connect(null, { postNewDiscussion, toggleDiscussionForm })(CreateDiscussionFormContainer);

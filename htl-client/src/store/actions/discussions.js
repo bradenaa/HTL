@@ -3,6 +3,7 @@ import { addError } from './errors';
 import {
   LOAD_DISCUSSIONS,
   LOAD_ONE_DISCUSSION,
+  TOGGLE_DISCUSSION_FORM,
   ADD_DISCUSSION,
   REMOVE_DISCUSSION,
   REMOVE_REPLY,
@@ -18,6 +19,10 @@ export const loadDiscussions = discussions => ({
   type: LOAD_DISCUSSIONS,
   discussions
 });
+
+export const toggleDiscussionForm = () => ({
+  type: TOGGLE_DISCUSSION_FORM
+})
 
 export const addDiscussionToState = discussion => ({
   type: ADD_DISCUSSION,
@@ -108,6 +113,7 @@ export const fetchDiscussions = () => {
 **/
 export const postNewDiscussion = ( data )  => (dispatch, getState) => {
   let { currentUser } = getState();
+  dispatch(toggleDiscussionForm());
   const userID = currentUser.user.id;
   return apiCall('post', `/api/user/${userID}/discussions`, data)
     .then(res => dispatch(addDiscussionToState(res)))

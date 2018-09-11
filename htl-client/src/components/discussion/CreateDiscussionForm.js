@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const CreateDiscussionForm = (props) => {
-  
-  const { title, post, closePopup, handleChange, handleNewDiscussion } = props;
+
+  const { title, post, toggleDiscussionForm, handleChange, handleNewDiscussion } = props;
+
+  console.log("CreateDiscussionForm", props)
 
   return (
 
@@ -35,13 +38,19 @@ const CreateDiscussionForm = (props) => {
           <button type="submit">
             Add New Post!
           </button>
-          <button onClick={closePopup}>Close</button>
+          <button onClick={toggleDiscussionForm}>Close</button>
         </form>
 
       </div>
     </div>
   );
 };
+
+CreateDiscussionForm.propTypes = {
+  toggleDiscussionForm: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleNewDiscussion: PropTypes.func,
+}
 
 
 

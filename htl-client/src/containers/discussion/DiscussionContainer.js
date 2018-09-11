@@ -1,70 +1,49 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDiscussions, removeDiscussion } from '../../store/actions/discussions';
+import { toggleDiscussionForm } from '../../store/actions/discussions';
 import CreateDiscussionFormContainer from './CreateDiscussionFormContainer'
 import DiscussionListContainer from './DiscussionListContainer'
 
-class DiscussionContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showCreateDiscussionForm: false
-    }
-  };
+const DiscussionContainer = (props) => {
 
-  toggleCreateForm = e => {
-    e.preventDefault();
-    this.setState({
-      showCreateDiscussionForm: !this.state.showCreateDiscussionForm
-    });
-  }
+  const { showDiscussionForm, toggleDiscussionForm} = props;
 
-  render() {
-    // console.log("DiscussionsComponent - PROPS");
-    // console.log(this.props);
-
-    const { showCreateDiscussionForm } = this.state;
-    const { discussions, fetchDiscussions, removeDiscussion, currentUser, } = this.props;
-
-    console.log("Discussions Rendered", discussions);
-
-    return (
+  return (
+    <div>
+      <h1>Discussion List Component</h1>
       <div>
-        <h1>Discussion List Component</h1>
-        <div>
-          <button id="loginButton" onClick={this.toggleCreateForm}>Create New Discussion</button>
-        </div>
-        <div className="popup_container">
-          {
-            showCreateDiscussionForm ?
-              <CreateDiscussionFormContainer
-                closePopup={this.toggleCreateForm}
-              />
-            : null
-          }
-        </div>
-        <DiscussionListContainer
-          discussions={discussions}
-          fetchDiscussions={fetchDiscussions}
-          removeDiscussion={removeDiscussion}
-          currentUser={currentUser}
-        />
+        <button id="loginButton" onClick={toggleDiscussionForm}>Create New Discussion</button>
       </div>
-    )
-  }
+      <div className="popup_container">
+        {
+          showDiscussionForm ?
+            <CreateDiscussionFormContainer /> : null
+        }
+      </div>
+
+      <DiscussionListContainer />
+
+    </div>
+  )
+}
+
+DiscussionContainer.propTypes = {
+  showDiscussionForm: PropTypes.bool,
+  toggleDiscussionForm: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
-  // console.log("DiscussionContainer - STATE");
-  // console.log(state);
   return {
-    ...state,
-    discussions: state.discussions,
-    currentUser: state.currentUser.user,
+    showDiscussionForm: state.discussions.showDiscussionForm
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    toggleDiscussionForm: () => dispatch(toggleDiscussionForm()),
+});
+
 export default connect(
   mapStateToProps,
-  { fetchDiscussions, removeDiscussion }
+  mapDispatchToProps
 )(DiscussionContainer)
