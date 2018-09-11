@@ -45,7 +45,7 @@ export const postNewEvent = ( data )  => (dispatch, getState) => {
   console.log(data);
   // sets the currentUser to the current state in the redux store
   let { currentUser } = getState();
-  const id = currentUser.user.id;
+  const id = currentUser.userInfo.id;
   return apiCall('post', `/api/users/${id}/events`, data)
     .then(res => console.log(res))
     .catch(err => dispatch(addError(err.message)))

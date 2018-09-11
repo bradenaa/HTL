@@ -12,7 +12,7 @@ import withAuth from '../hocs/withAuth';
 
 // New Discussion Structures
 import DiscussionContainer from '../containers/discussion/DiscussionContainer'
-// import ShowDiscussionContainer from '../containers/discussion/ShowDiscussionContainer'
+import ShowDiscussionContainer from '../containers/discussion/ShowDiscussion/ShowDiscussionContainer'
 
 //Events
 import Events from '../components/Events';
@@ -55,10 +55,10 @@ const Main = props => {
           exact path="/discussion"
           component={withAuth(DiscussionContainer)}
         />
-        {/* <Route
+        <Route
           path="/discussion/:discussionID"
           component={withAuth(ShowDiscussionContainer)}
-        /> */}
+        />
       </Switch>
     </div>
   )

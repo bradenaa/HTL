@@ -5,8 +5,6 @@ const CreateDiscussionForm = (props) => {
 
   const { title, post, toggleDiscussionForm, handleChange, handleNewDiscussion } = props;
 
-  // console.log("CreateDiscussionForm")
-
   return (
 
     <div className='popup'>
@@ -51,7 +49,5 @@ CreateDiscussionForm.propTypes = {
   handleChange: PropTypes.func,
   handleNewDiscussion: PropTypes.func,
 }
-
-
 
 export default CreateDiscussionForm;

@@ -23,7 +23,12 @@ export default function withAuth (ComponentToBeRendered) {
     };
 
     render() {
-      return <ComponentToBeRendered />;
+      // console.log(this.props);
+      return (
+       <ComponentToBeRendered
+         params={this.props.match.params}
+       />
+      )
     };
   };
 

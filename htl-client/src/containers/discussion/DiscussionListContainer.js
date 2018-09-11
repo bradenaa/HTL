@@ -29,7 +29,7 @@ class DiscussionListContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     discussionsArr: state.discussions.discussionsArr,
-    currentUser: state.currentUser.user,
+    currentUser: state.currentUser.userInfo,
   }
 }
 

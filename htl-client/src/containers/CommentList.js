@@ -18,7 +18,7 @@ class CommentList extends Component {
           userCreated={c.author}
           comment={c.text}
           replies={c.replies}
-          isCorrectUser={currentUser.user.id === c.author._id}
+          isCorrectUser={currentUser.userInfo.id === c.author._id}
           discussionID={foundDiscussion._id}
           removeError={removeError}
         />

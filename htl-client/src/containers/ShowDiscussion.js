@@ -28,7 +28,7 @@ class ShowDiscussion extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchOneDiscussion(this.props.currentUser.user.id, this.props.match.params.discussionID);
+    this.props.fetchOneDiscussion(this.props.currentUser.userInfo.id, this.props.match.params.discussionID);
   }
 
   render() {

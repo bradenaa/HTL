@@ -105,7 +105,7 @@ exports.promoHandler = async function(req, res, next){
         hasPromo
       }, process.env.JWT_SECRET,
       {
-        expiresIn: 60 * 120
+        expiresIn: 60 * 240
       });
       return res.status(200).json({
         displayName,

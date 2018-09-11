@@ -18,7 +18,7 @@ class ReplyList extends Component {
           key={r._id}
           userCreated={r.author}
           reply={r.text}
-          isCorrectUser={currentUser.user.id === r.author._id}
+          isCorrectUser={currentUser.userInfo.id === r.author._id}
         />
       )
     });

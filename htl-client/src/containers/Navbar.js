@@ -34,7 +34,7 @@ class Navbar extends Component {
                 <Link to="/events">Events</Link>
                 <Link to="/discussion">Discussion</Link>
 
-                <Link to={`/users/${this.props.currentUser.user.id}/events/new`}>
+                <Link to={`/users/${this.props.currentUser.userInfo.id}/events/new`}>
                   New Event
                 </Link>
                 <button id="loginButton" onClick={logout}>Logout</button>

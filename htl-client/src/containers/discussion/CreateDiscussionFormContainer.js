@@ -14,16 +14,13 @@ class CreateDiscussionFormContainer extends Component {
   };
 
   handleNewDiscussion = e => {
-    // debugger;
     e.preventDefault();
     this.props.postNewDiscussion(this.state);
-    // debugger;
     this.setState({
       title: '',
       post: '',
       tags: []
     });
-    // debugger;
   };
 
   handleChange = e => {

@@ -2,10 +2,12 @@ import { apiCall } from '../../services/api';
 import { addError } from './errors';
 import {
   LOAD_DISCUSSIONS,
-  LOAD_ONE_DISCUSSION,
   TOGGLE_DISCUSSION_FORM,
   ADD_DISCUSSION,
   REMOVE_DISCUSSION,
+  LOAD_ONE_DISCUSSION,
+  ADD_COMMENT,
+  TOGGLE_COMMENT_FORM,
   REMOVE_REPLY,
   REMOVE_COMMENT,
   ADD_REPLY,
@@ -14,6 +16,8 @@ import {
  // ++++++++++++++++++++++++++++++++++++++++
  // ========== Action Creators =============
  // ++++++++++++++++++++++++++++++++++++++++
+
+ // MAIN DISCUSSION
 
 export const loadDiscussions = discussions => ({
   type: LOAD_DISCUSSIONS,
@@ -34,10 +38,20 @@ export const removeDiscussionFromState = discussionID => ({
   discussionID
 });
 
+// SHOW MORE DISCUSSION
+
 export const loadOneDiscussion = oneDiscussion => ({
   type: LOAD_ONE_DISCUSSION,
   oneDiscussion
 });
+
+export const addComment = comment => ({
+  type: ADD_COMMENT
+})
+
+export const toggleCommentForm = () => ({
+  type: TOGGLE_COMMENT_FORM
+})
 
 export const removeComment = id => ({
   type: REMOVE_COMMENT,
@@ -105,7 +119,6 @@ export const fetchDiscussions = () => {
   };
 };
 
-//TODO: get response to match that of the data structure on the front-end
 /**
 * Thunk that returns API call which is posting new discussion to the backend
 * Will not dispatch except from an error
@@ -128,13 +141,18 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
 * A thunk that returns API call, which posts new comments to backend
 * The response is the updated discussion, which is then dispatched to loadOneDiscussion
 * @param {string} discussionID id of discussion received from props
-* @param {object} data object containing a text string
+* @param {string} data object containing a text string
 **/
 export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, getState) => {
   let { currentUser } = getState();
-  const userID = currentUser.user.id;
+  const userID = currentUser.userInfo.id;
+  console.log("discussionID:", discussionID);
+  console.log("data: ", data);
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}`, data)
-    .then(res => dispatch(loadOneDiscussion(res)))
+    .then(res => {
+      console.log('response from comment post: ', res);
+      return dispatch(addComment(res))
+    })
     .catch(err => dispatch(addError(err.message)))
 }
 

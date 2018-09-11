@@ -76,8 +76,9 @@ exports.getOneDiscussion = async function(req, res, next) {
 exports.postCommentToDiscussion = async function(req, res, next) {
   try {
     // create the comment with data passed from the front end
+
     let comment = await db.Comment.create({
-      text: req.body.text,
+      text: req.body.commentText,
       author: req.params.userID
     })
 

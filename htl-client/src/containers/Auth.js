@@ -36,7 +36,7 @@ class Auth extends Component {
 
     handlePromoSubmit = (e) => {
       e.preventDefault();
-      this.props.submitPromo(this.state.promoCode, this.props.currentUser.user.id);
+      this.props.submitPromo(this.state.promoCode, this.props.currentUser.userInfo.id);
       this.setState({promoCode: ''});
     }
 
@@ -52,20 +52,20 @@ class Auth extends Component {
                 <div className='popup_inner'>
                   <p>Authenticated</p>
                   <div>
-                    {this.props.currentUser.user.name}
+                    {this.props.currentUser.userInfo.name}
                   </div>
                   <div>
-                    {this.props.currentUser.user.email}
+                    {this.props.currentUser.userInfo.email}
                   </div>
                   <div>
-                    {this.props.currentUser.user.id}
+                    {this.props.currentUser.userInfo.id}
                   </div>
                   <div>
                     HasPromo:
-                    {this.props.currentUser.user.hasPromo.toString()}
+                    {this.props.currentUser.userInfo.hasPromo.toString()}
                   </div>
                   <div>
-                    {this.props.currentUser.user.token}
+                    {this.props.currentUser.userInfo.token}
                   </div>
                   <div>
                     <button onClick={this.logout} className="button">
@@ -90,20 +90,20 @@ class Auth extends Component {
                     <div className='popup_inner'>
                       <p>Authenticated</p>
                       <div>
-                        {this.props.currentUser.user.name}
+                        {this.props.currentUser.userInfo.name}
                       </div>
                       <div>
-                        {this.props.currentUser.user.email}
+                        {this.props.currentUser.userInfo.email}
                       </div>
                       <div>
-                        {this.props.currentUser.user.id}
+                        {this.props.currentUser.userInfo.id}
                       </div>
                       <div>
                         HasPromo:
-                        {this.props.currentUser.user.hasPromo.toString()}
+                        {this.props.currentUser.hasPromo.toString()}
                       </div>
                       <div>
-                        {this.props.currentUser.user.token}
+                        {this.props.currentUser.userInfo.token}
                       </div>
                       <div>
                         <button onClick={this.logout} className="button">
