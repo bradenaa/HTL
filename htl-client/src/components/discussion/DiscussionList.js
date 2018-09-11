@@ -5,11 +5,10 @@ import DiscussionItem from './DiscussionItem'
 const DiscussionList = (props) => {
 
   const { discussionsArr, removeDiscussion, currentUser } = props;
-  
-  // console.log("The discussionList rendered", discussionsArr);
-  // console.log("----------------------------------------")
 
-  //TODO: Find out why removeDiscussion is running twice when button is clicked on DiscussionItem
+  console.log("The discussionList rendered", discussionsArr);
+  console.log("----------------------------------------")
+
   let discussionList = discussionsArr.map( d => {
     return (
         <DiscussionItem

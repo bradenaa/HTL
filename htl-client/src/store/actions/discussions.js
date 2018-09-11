@@ -29,9 +29,9 @@ export const addDiscussionToState = discussion => ({
   discussion
 })
 
-export const removeDiscussionFromState = id => ({
+export const removeDiscussionFromState = discussionID => ({
   type: REMOVE_DISCUSSION,
-  id
+  discussionID
 });
 
 export const loadOneDiscussion = oneDiscussion => ({
@@ -75,7 +75,7 @@ export const removeDiscussion = (userID, discussionID) => {
 
   return dispatch => {
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
-      .then(() => dispatch(removeDiscussion(discussionID)))
+      .then(() => dispatch(removeDiscussionFromState(discussionID)))
       .catch(err => dispatch(addError(err.message)))
   };
 };

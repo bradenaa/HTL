@@ -21,6 +21,7 @@ const DiscussionItem = (props) => {
         <h3>By: {userCreated.displayName}</h3>
         <h4>Post: {post}</h4>
         <h4>PostID: {postID}</h4>
+        <h4>Date: {date}</h4>
 
         {isCorrectUser && (
           <div>

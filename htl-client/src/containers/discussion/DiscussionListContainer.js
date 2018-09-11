@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import { removeDiscussion, fetchDiscussions } from '../../store/actions/discussions';
 import DiscussionList from '../../components/discussion/DiscussionList'
 
-//TODO: Find the best way to pass helper functions down as props - COMPLETED
-//TODO: Look into the best way to handle TODOS in the future
-//TODO: Write PropTypes for explicitness. Maybe start to setup TypeScript
-
 class DiscussionListContainer extends Component {
 
   static propTypes = {

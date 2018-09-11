@@ -13,7 +13,7 @@ const discussions = (state = {
     case ADD_DISCUSSION:
       return {...state, discussionsArr: [...state.discussionsArr, action.discussion]};
     case REMOVE_DISCUSSION:
-      return state.discussionArr.filter(m => m._id !== action.id);
+      return {...state, discussionsArr: state.discussionsArr.filter(m => m._id !== action.discussionID)};
     case REMOVE_ALL:
       return []
     default:

@@ -5,7 +5,7 @@ const CreateDiscussionForm = (props) => {
 
   const { title, post, toggleDiscussionForm, handleChange, handleNewDiscussion } = props;
 
-  console.log("CreateDiscussionForm", props)
+  // console.log("CreateDiscussionForm")
 
   return (
 
