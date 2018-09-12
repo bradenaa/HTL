@@ -46,16 +46,17 @@ export const loadOneDiscussion = oneDiscussion => ({
 });
 
 export const addComment = comment => ({
-  type: ADD_COMMENT
+  type: ADD_COMMENT,
+  comment
 })
 
 export const toggleCommentForm = () => ({
   type: TOGGLE_COMMENT_FORM
 })
 
-export const removeComment = id => ({
+export const removeComment = commentID => ({
   type: REMOVE_COMMENT,
-  id
+  commentID
 });
 
 export const removeReply = id => ({
@@ -127,7 +128,7 @@ export const fetchDiscussions = () => {
 export const postNewDiscussion = ( data )  => (dispatch, getState) => {
   let { currentUser } = getState();
   dispatch(toggleDiscussionForm());
-  const userID = currentUser.user.id;
+  const userID = currentUser.userInfo.id;
   return apiCall('post', `/api/user/${userID}/discussions`, data)
     .then(res => dispatch(addDiscussionToState(res)))
     .catch(err => dispatch(addError(err.message)))
@@ -146,13 +147,10 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
 export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, getState) => {
   let { currentUser } = getState();
   const userID = currentUser.userInfo.id;
-  console.log("discussionID:", discussionID);
-  console.log("data: ", data);
+  dispatch(toggleCommentForm());
+
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}`, data)
-    .then(res => {
-      console.log('response from comment post: ', res);
-      return dispatch(addComment(res))
-    })
+    .then(res => dispatch(addComment(res)))
     .catch(err => dispatch(addError(err.message)))
 }
 

@@ -6,11 +6,10 @@ import PostDisplay from '../../../components/discussion/ShowDiscussion/PostDispl
 import CommentListContainer from './CommentListContainer'
 
 // TODO: populate (from backend) the oneDiscussion userCreated key
-// TODO: See if there is a way to make component render wait until it was the right props before rendering. Currently rendering prior to receiving new state change due to the API call for data.
-// TODO: write up propTypes
+// TODO: See if there is a way to make component render wait until it has the right props before rendering. Currently rendering prior to receiving new state change due to the API call for data.
+// TODO: write tests for components to see if they are rendering once before getting the props you want via redux state after the backend request
 
 class ShowDiscussionContainer extends Component {
-
   static propTypes = {
     currentUserID: PropTypes.string,
     params: PropTypes.object,
@@ -23,8 +22,6 @@ class ShowDiscussionContainer extends Component {
   }
 
   render() {
-    // console.log("ShowDiscussionContainer PROPS:");
-    // console.log(this.props);
     const { title, post, date, userCreated } = this.props.oneDiscussion;
 
     return (
@@ -35,9 +32,8 @@ class ShowDiscussionContainer extends Component {
           date={date}
           userCreated={userCreated}
         />
-        <CommentListContainer
 
-        />
+        <CommentListContainer />
       </div>
     );
   }

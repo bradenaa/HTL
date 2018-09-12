@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Landing from "../components/Landing";
 import FAQ from "../components/FAQ";
 // import { removeError } from '../store/actions/errors';
@@ -18,22 +18,21 @@ import ShowDiscussionContainer from '../containers/discussion/ShowDiscussion/Sho
 import Events from '../components/Events';
 import EventForm from '../containers/EventForm';
 
-// Main container that will use router to provide navigation throughout the main application
-
 //TODO: Look into typescript for prop handling on the containers and components. Also for type strictness
 
-const Main = props => {
+const Main = (props) => {
   const { currentUser } = props;
+
   return (
     <div className="container">
       <Switch>
         <Route
           exact path="/"
-          render={props => <Landing currentUser={currentUser} {...props} />}
+          render={props => <Landing currentUser={currentUser}/>}
         />
         <Route
           exact path="/FAQ"
-          render={props => <FAQ currentUser={currentUser} {...props}/>}
+          render={props => <FAQ currentUser={currentUser}/>}
         />
         <Route
           exact path="/events"
@@ -67,7 +66,7 @@ const Main = props => {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    errors: state.errors
+    // errors: state.errors
   };
 }
 

@@ -6,15 +6,14 @@ import CreateDiscussionFormContainer from './CreateDiscussionFormContainer'
 import DiscussionListContainer from './DiscussionListContainer'
 
 const DiscussionContainer = (props) => {
-
   const { showDiscussionForm, toggleDiscussionForm} = props;
 
   return (
     <div>
-      <h1>Discussion List Component</h1>
-      <div>
-        <button id="loginButton" onClick={toggleDiscussionForm}>Create New Discussion</button>
-      </div>
+      <h1> Discussion List Component </h1>
+
+      <button id="loginButton" onClick={toggleDiscussionForm}> Create New Discussion </button>
+
       <div className="popup_container">
         {
           showDiscussionForm ?
@@ -23,7 +22,6 @@ const DiscussionContainer = (props) => {
       </div>
 
       <DiscussionListContainer />
-
     </div>
   )
 }

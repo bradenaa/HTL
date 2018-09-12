@@ -76,7 +76,6 @@ exports.getOneDiscussion = async function(req, res, next) {
 exports.postCommentToDiscussion = async function(req, res, next) {
   try {
     // create the comment with data passed from the front end
-
     let comment = await db.Comment.create({
       text: req.body.commentText,
       author: req.params.userID
@@ -87,17 +86,14 @@ exports.postCommentToDiscussion = async function(req, res, next) {
     foundDiscussion.comments.push(comment);
     await foundDiscussion.save();
 
-    // Find the discussion and populate to format the response to the front end
-    let populatedDiscussion = await db.Discussion.findById(req.params.discussionID)
-      .populate({
-        path: "comments",
-        populate: {
-          path: 'author',
-          select: 'displayName'
-        }
-     });
+    // Find and populate the new comment to respond with
+    let foundComment = await db.Comment.findById(comment._id)
+     .populate({
+           path: 'author'
+      });
 
-    return res.status(200).json(populatedDiscussion);
+    return res.status(200).json(foundComment);
+
   } catch(err) {
     console.log(err);
     return next(err);

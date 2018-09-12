@@ -2,11 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const PostDisplay = (props) => {
-  console.log("PROPS in PostDisplay");
-  console.log(props);
-  console.log("---------------------");
-
   const {title, post, date, userCreated } = props;
+
   return (
     <div>
       <h1>{title}</h1>
@@ -20,6 +17,8 @@ const PostDisplay = (props) => {
 PostDisplay.propTypes = {
   title: PropTypes.string,
   post: PropTypes.string,
+  date: PropTypes.string,
+  userCreated: PropTypes.string
 }
 
 export default PostDisplay;

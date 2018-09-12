@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { toggleCommentForm, postNewCommentToDiscussion } from '../../../store/actions/discussions'
 import CreateCommentForm from '../../../components/discussion/ShowDiscussion/CreateCommentForm'
@@ -6,45 +7,41 @@ import CreateCommentForm from '../../../components/discussion/ShowDiscussion/Cre
 class CreateCommentFormContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      commentText: ''
-    }
+    this.state = { commentText: '' }
   };
+
+  static propTypes = {
+    discussionID: PropTypes.string,
+    postNewCommentToDiscussion: PropTypes.func,
+    toggleCommentForm: PropTypes.func
+  }
 
   handleNewComment = e => {
     e.preventDefault();
     this.props.postNewCommentToDiscussion(this.props.discussionID, this.state);
-    this.setState({
-      commentText: ''
-    });
+    this.setState({ commentText: '' });
   };
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render(){
-    console.log("CreateCommentContainer PROPS:", this.props)
     const { commentText } = this.state;
     const { toggleCommentForm } = this.props;
 
     return(
-
         <CreateCommentForm
           commentText={commentText}
           handleChange={this.handleChange}
           toggleCommentForm={toggleCommentForm}
           handleNewComment={this.handleNewComment}
         />
-
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     discussionID: state.oneDiscussion._id
   }
@@ -52,5 +49,8 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { toggleCommentForm, postNewCommentToDiscussion }
+  {
+    toggleCommentForm,
+    postNewCommentToDiscussion
+  }
 )(CreateCommentFormContainer)

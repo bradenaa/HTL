@@ -26,7 +26,7 @@ const oneDiscussion = (state = DEFAULT_STATE, action) => {
     case ADD_COMMENT:
       return {...state, comments: [...state.comments, action.comment]}
     case REMOVE_COMMENT:
-      return state;
+      return {...state, comments: state.comments.filter(c => c._id !== action.commentID)}
     case REMOVE_REPLY:
       return state
     case ADD_REPLY:

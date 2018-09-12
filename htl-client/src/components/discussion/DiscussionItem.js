@@ -23,11 +23,7 @@ const DiscussionItem = (props) => {
         <h4>PostID: {postID}</h4>
         <h4>Date: {date}</h4>
 
-        {isCorrectUser && (
-          <div>
-            <button onClick={removeDiscussion}>DELETE</button>
-          </div>
-        )}
+        { isCorrectUser && (<button onClick={removeDiscussion}> DELETE </button>) }
       </li>
     </div>
   )

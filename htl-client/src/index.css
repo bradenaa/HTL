@@ -2,6 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #b6c9d0
+}
+
+a {
+  font-weight: 600;
 }
 
 /* Navbar */
@@ -62,4 +67,9 @@ html, body, .app {
 .discussion-list-item {
   border: 1px solid black;
   list-style: none;
+}
+
+.comment_item {
+  margin-left: 40px;
+  border: 2px solid #2f5c32;
 }
