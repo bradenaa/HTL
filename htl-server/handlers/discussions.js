@@ -118,7 +118,7 @@ exports.postReplyToComment = async function(req, res, next) {
   try {
     // create the reply with data passed from the front end
     let reply = await db.Reply.create({
-      text: req.body.text,
+      replyText: req.body.replyText,
       author: req.params.userID
     });
 
@@ -131,30 +131,16 @@ exports.postReplyToComment = async function(req, res, next) {
            model: 'User',
          }
      })
-     console.log("found reply is: ", foundReply);
 
     // Find comment and push reply into the array
     let foundComment = await db.Comment.findById(req.params.commentID)
     foundComment.replies.push(reply);
     await foundComment.save();
 
-    //Find the comment again and populate to format the reponse for the front end
-    let populatedComment = await db.Comment.findById(req.params.commentID)
-      .populate({
-        path: "replies",
-        populate: {
-          path: 'author',
-          select: 'displayName'
-        }
-      });
-
-      console.log("populated:", populatedComment);
-
     // respond with reply and the comment ID
     return res.status(200).json({
       commentID: foundComment._id,
-      foundReply,
-      populatedComment
+      reply: foundReply,
     });
 
   } catch (err) {

@@ -9,16 +9,18 @@ const CommentList = (props) => {
     return (
       <CommentItem
         key={c._id}
-        id={c._id}
+        commentID={c._id}
         authorName={c.author.displayName}
         text={c.text}
         date={c.createdAt}
         isCorrectUser={c.author._id === currentUserID}
         removeComment={removeComment.bind(this, currentUserID, discussionID, c._id)}
+        showReplyList={c.showReplyList}
+        showReplyForm={c.showReplyForm}
       />
     )
   })
-  
+
   return (
     <div>
       {commentList.length ? commentList : <div> No Comments Yet! Try leaving one...</div>}

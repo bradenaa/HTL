@@ -5,11 +5,16 @@ import {
   TOGGLE_DISCUSSION_FORM,
   ADD_DISCUSSION,
   REMOVE_DISCUSSION,
+
   LOAD_ONE_DISCUSSION,
-  ADD_COMMENT,
   TOGGLE_COMMENT_FORM,
-  REMOVE_REPLY,
+  ADD_COMMENT,
   REMOVE_COMMENT,
+
+  TOGGLE_REPLY_FORM,
+  TOGGLE_REPLY_LIST,
+  SHOW_REPLY_LIST,
+  REMOVE_REPLY,
   ADD_REPLY,
  } from '../actionTypes';
 
@@ -45,13 +50,13 @@ export const loadOneDiscussion = oneDiscussion => ({
   oneDiscussion
 });
 
+export const toggleCommentForm = () => ({
+  type: TOGGLE_COMMENT_FORM
+})
+
 export const addComment = comment => ({
   type: ADD_COMMENT,
   comment
-})
-
-export const toggleCommentForm = () => ({
-  type: TOGGLE_COMMENT_FORM
 })
 
 export const removeComment = commentID => ({
@@ -59,14 +64,31 @@ export const removeComment = commentID => ({
   commentID
 });
 
-export const removeReply = id => ({
-  type: REMOVE_REPLY,
-  id
+export const toggleReplyForm = commentID => ({
+  type: TOGGLE_REPLY_FORM,
+  commentID
+})
+
+export const toggleReplyList = commentID => ({
+  type: TOGGLE_REPLY_LIST,
+  commentID
+})
+
+export const showReplyList = commentID => ({
+  type: SHOW_REPLY_LIST,
+  commentID
+})
+
+export const addReply = (commentID, reply) => ({
+  type: ADD_REPLY,
+  commentID,
+  reply,
 });
 
-export const addReply = data => ({
-  type: ADD_REPLY,
-  data
+export const removeReply = (commentID, replyID) => ({
+  type: REMOVE_REPLY,
+  commentID,
+  replyID
 });
 
 export const removeAll = () => ({
@@ -183,12 +205,13 @@ export const removeCommentAndDispatch = (userID, discussionID, commentID) => {
 **/
 export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState) => {
   let { currentUser, oneDiscussion } = getState();
-  const userID = currentUser.user.id;
+  const userID = currentUser.userInfo.id;
   const discussionID = oneDiscussion._id;
+  dispatch(toggleReplyForm(commentID))
+  dispatch(showReplyList(commentID))
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}`, data)
     .then(res => {
-      console.log("reply post response: ", res)
-      dispatch(addReply(res));
+      dispatch(addReply(res.commentID, res.reply));
     })
     .catch(err => dispatch(addError(err.message)))
 }
@@ -202,9 +225,9 @@ export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState)
 **/
 export const removeReplyAndDispatch = (commentID, replyID) => (dispatch, getState) => {
   let { currentUser, oneDiscussion } = getState();
-  const userID = currentUser.user.id;
+  const userID = currentUser.userInfo.id;
   const discussionID = oneDiscussion._id;
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}/replies/${replyID}`)
-      .then(() => dispatch(removeReply(replyID)))
+      .then(() => dispatch(removeReply(commentID, replyID)))
       .catch(err => dispatch(addError(err.message)))
 };

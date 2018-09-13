@@ -73,3 +73,8 @@ html, body, .app {
   margin-left: 40px;
   border: 2px solid #2f5c32;
 }
+
+.reply_item {
+  margin-left: 80px;
+  border: 2px solid #102870;
+}

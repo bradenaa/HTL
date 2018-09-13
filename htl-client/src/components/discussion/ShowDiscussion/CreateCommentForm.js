@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 const CreateCommentForm = (props) => {
   const { commentText, handleChange, toggleCommentForm, handleNewComment } = props;
-  console.log("CreateCommentForm PROPS", props);
 
   return (
     <div className='popup'>
@@ -26,10 +25,10 @@ const CreateCommentForm = (props) => {
             value={commentText}
             onChange={handleChange}
           />
+
           <button type="submit"> Add New Post! </button>
 
           <button onClick={toggleCommentForm}> Close </button>
-
         </form>
       </div>
     </div>

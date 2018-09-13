@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     toggleCommentForm: () => dispatch(toggleCommentForm()),
-    removeComment: (userID, discussionID, commentID) => dispatch(removeCommentAndDispatch(userID, discussionID, commentID))
+    removeComment: (userID, discussionID, commentID) => dispatch(removeCommentAndDispatch(userID, discussionID, commentID)),
   }
 }
 

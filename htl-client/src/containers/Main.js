@@ -6,10 +6,6 @@ import FAQ from "../components/FAQ";
 // import { removeError } from '../store/actions/errors';
 import withAuth from '../hocs/withAuth';
 
-// Old Discussions
-// import Discussion from '../components/Discussion';
-// import ShowDiscussion from '../containers/ShowDiscussion';
-
 // New Discussion Structures
 import DiscussionContainer from '../containers/discussion/DiscussionContainer'
 import ShowDiscussionContainer from '../containers/discussion/ShowDiscussion/ShowDiscussionContainer'
@@ -42,14 +38,6 @@ const Main = (props) => {
           path="/users/:userID/events/new"
           component={withAuth(EventForm)}
         />
-        {/* <Route
-          exact path="/discussion"
-          component={withAuth(Discussion)}
-        /> */}
-        {/* <Route
-          path="/discussion/:discussionID"
-          component={withAuth(ShowDiscussion)}
-        /> */}
         <Route
           exact path="/discussion"
           component={withAuth(DiscussionContainer)}

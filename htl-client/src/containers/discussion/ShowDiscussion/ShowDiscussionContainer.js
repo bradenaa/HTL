@@ -40,6 +40,7 @@ class ShowDiscussionContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("state:", state)
   return {
     currentUserID: state.currentUser.userInfo.id,
     oneDiscussion: {...state.oneDiscussion}
