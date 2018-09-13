@@ -3,7 +3,16 @@ import PropTypes from 'prop-types'
 import ReplyListContainer from '../../../containers/discussion/ShowDiscussion/ReplyListContainer'
 
 const CommentItem = (props) => {
-  const { authorName, date, commentID, text, isCorrectUser, removeComment, showReplyList, showReplyForm } = props;
+  const {
+    authorName,
+    date,
+    commentID,
+    text,
+    isCorrectUser,
+    removeComment,
+    showReplyList,
+    showReplyForm,
+   } = props;
 
   return(
     <div className='comment_item'>

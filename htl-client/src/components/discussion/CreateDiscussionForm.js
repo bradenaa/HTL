@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const CreateDiscussionForm = (props) => {
-
   const { title, post, toggleDiscussionForm, handleChange, handleNewDiscussion } = props;
 
   return (
-
     <div className='popup'>
       <div className="popup_inner">
 
@@ -48,6 +46,8 @@ CreateDiscussionForm.propTypes = {
   toggleDiscussionForm: PropTypes.func,
   handleChange: PropTypes.func,
   handleNewDiscussion: PropTypes.func,
+  post: PropTypes.string,
+  title: PropTypes.string,
 }
 
 export default CreateDiscussionForm;

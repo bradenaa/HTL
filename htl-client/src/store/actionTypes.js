@@ -17,7 +17,7 @@ export const TOGGLE_DISCUSSION_FORM = "TOGGLE_DISCUSSION_FORM"
 export const ADD_DISCUSSION = "ADD_DISCUSSION"
 export const REMOVE_DISCUSSION = "REMOVE_DISCUSSION"
 
-// oneDiscussion Actions
+// showDiscussion Actions
 export const LOAD_ONE_DISCUSSION = "LOAD_ONE_DISCUSSION"
   // comments
   export const TOGGLE_COMMENT_FORM = "TOGGLE_COMMENT_FORM"

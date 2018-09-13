@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { postNewDiscussion, toggleDiscussionForm } from '../../store/actions/discussions'
 import CreateDiscussionForm from '../../components/discussion/CreateDiscussionForm'
 
-class CreateDiscussionFormContainer extends Component {
+class DiscussionsFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
       post: '',
-      tags: []
     }
   };
+
+  static propTypes = {
+    postNewDiscussion: PropTypes.func,
+    toggleDiscussionForm: PropTypes.func,
+  }
 
   handleNewDiscussion = e => {
     e.preventDefault();
@@ -19,7 +24,6 @@ class CreateDiscussionFormContainer extends Component {
     this.setState({
       title: '',
       post: '',
-      tags: []
     });
   };
 
@@ -46,4 +50,7 @@ class CreateDiscussionFormContainer extends Component {
 }
 
 
-export default connect(null, { postNewDiscussion, toggleDiscussionForm })(CreateDiscussionFormContainer);
+export default connect(
+  null,
+  { postNewDiscussion, toggleDiscussionForm }
+)(DiscussionsFormContainer);

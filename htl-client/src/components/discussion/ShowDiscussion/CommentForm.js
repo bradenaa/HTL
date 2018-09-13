@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const CreateCommentForm = (props) => {
+const CommentForm = (props) => {
   const { commentText, handleChange, toggleCommentForm, handleNewComment } = props;
 
   return (
@@ -35,11 +35,11 @@ const CreateCommentForm = (props) => {
   )
 }
 
-CreateCommentForm.propTypes = {
+CommentForm.propTypes = {
   commentText: PropTypes.string,
   handleChange: PropTypes.func,
-  handleNewComment: PropTypes.func,
   toggleCommentForm: PropTypes.func,
+  handleNewComment: PropTypes.func,
 }
 
-export default CreateCommentForm;
+export default CommentForm;

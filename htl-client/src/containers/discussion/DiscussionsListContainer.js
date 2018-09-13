@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { removeDiscussion, fetchDiscussions } from '../../store/actions/discussions';
 import DiscussionList from '../../components/discussion/DiscussionList'
 
-class DiscussionListContainer extends Component {
+class DiscussionsListContainer extends Component {
 
   static propTypes = {
     currentUser: PropTypes.object,
-    discussionsArr: PropTypes.array,
+    discussions: PropTypes.array,
     fetchDiscussions: PropTypes.func,
     removeDiscussion: PropTypes.func,
   }
@@ -18,9 +18,12 @@ class DiscussionListContainer extends Component {
   }
 
   render() {
+    const { currentUser, discussions, fetchDiscussions, removeDiscussion } = this.props;
     return(
       <DiscussionList
-        {...this.props}
+        currentUser={currentUser}
+        discussions={discussions}
+        removeDiscussion={removeDiscussion}
       />
     )
   }
@@ -28,9 +31,9 @@ class DiscussionListContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    discussionsArr: state.discussions.discussionsArr,
+    discussions: state.discussions.discussions,
     currentUser: state.currentUser.userInfo,
   }
 }
 
-export default connect(mapStateToProps, { removeDiscussion, fetchDiscussions })(DiscussionListContainer)
+export default connect(mapStateToProps, { removeDiscussion, fetchDiscussions })(DiscussionsListContainer)

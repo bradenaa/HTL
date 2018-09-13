@@ -2,33 +2,34 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleDiscussionForm } from '../../store/actions/discussions';
-import CreateDiscussionFormContainer from './CreateDiscussionFormContainer'
-import DiscussionListContainer from './DiscussionListContainer'
+import DiscussionsFormContainer from './DiscussionsFormContainer'
+import DiscussionsListContainer from './DiscussionsListContainer'
 
-const DiscussionContainer = (props) => {
+const DiscussionsContainer = (props) => {
   const { showDiscussionForm, toggleDiscussionForm} = props;
 
   return (
     <div>
-      <h1> Discussion List Component </h1>
+      <h1> DiscussionsListContainer </h1>
 
       <button id="loginButton" onClick={toggleDiscussionForm}> Create New Discussion </button>
 
       <div className="popup_container">
         {
           showDiscussionForm ?
-            <CreateDiscussionFormContainer /> : null
+            <DiscussionsFormContainer /> : null
         }
       </div>
 
-      <DiscussionListContainer />
+      <DiscussionsListContainer />
     </div>
   )
 }
 
-DiscussionContainer.propTypes = {
+DiscussionsContainer.propTypes = {
   showDiscussionForm: PropTypes.bool,
   toggleDiscussionForm: PropTypes.func,
+  params: PropTypes.object,
 }
 
 const mapStateToProps = (state) => {
@@ -44,4 +45,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DiscussionContainer)
+)(DiscussionsContainer)

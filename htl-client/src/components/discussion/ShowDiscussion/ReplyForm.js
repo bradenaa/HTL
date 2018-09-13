@@ -27,15 +27,14 @@ const ReplyForm = (props) => {
 
         <button type="submit"> Add New Post! </button>
       </form>
-
     </div>
   )
 }
 
 ReplyForm.propTypes = {
-  handleChange: PropTypes.func,
-  replyText: PropTypes.string,
   handleNewReply: PropTypes.func,
+  replyText: PropTypes.string,
+  handleChange: PropTypes.func,
 }
 
 export default ReplyForm

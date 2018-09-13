@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import DiscussionItem from './DiscussionItem'
 
 const DiscussionList = (props) => {
-  const { discussionsArr, removeDiscussion, currentUser } = props;
-  // console.log("The discussionList rendered", discussionsArr);
+  const { discussions, removeDiscussion, currentUser } = props;
+  console.log("PROPS - ", props);
 
-  let discussionList = discussionsArr.map( d => {
+  let discussionList = discussions.map( d => {
     return (
       <DiscussionItem
         key={d._id}
@@ -29,9 +29,8 @@ const DiscussionList = (props) => {
 }
 
 DiscussionList.propTypes = {
+  discussions: PropTypes.array,
   currentUser: PropTypes.object,
-  discussionsArr: PropTypes.array,
-  fetchDiscussions: PropTypes.func,
   removeDiscussion: PropTypes.func,
 }
 

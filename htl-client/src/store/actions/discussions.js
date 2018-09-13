@@ -45,9 +45,9 @@ export const removeDiscussionFromState = discussionID => ({
 
 // SHOW MORE DISCUSSION
 
-export const loadOneDiscussion = oneDiscussion => ({
+export const loadOneDiscussion = showDiscussion => ({
   type: LOAD_ONE_DISCUSSION,
-  oneDiscussion
+  showDiscussion
 });
 
 export const toggleCommentForm = () => ({
@@ -204,9 +204,9 @@ export const removeCommentAndDispatch = (userID, discussionID, commentID) => {
 * TODO: keep the show replies state to be true, instead of defaulting back to false
 **/
 export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState) => {
-  let { currentUser, oneDiscussion } = getState();
+  let { currentUser, showDiscussion } = getState();
   const userID = currentUser.userInfo.id;
-  const discussionID = oneDiscussion._id;
+  const discussionID = showDiscussion._id;
   dispatch(toggleReplyForm(commentID))
   dispatch(showReplyList(commentID))
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}`, data)
@@ -224,9 +224,9 @@ export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState)
 * @param {string} replyID ID of the specific reply that is to be removed
 **/
 export const removeReplyAndDispatch = (commentID, replyID) => (dispatch, getState) => {
-  let { currentUser, oneDiscussion } = getState();
+  let { currentUser, showDiscussion } = getState();
   const userID = currentUser.userInfo.id;
-  const discussionID = oneDiscussion._id;
+  const discussionID = showDiscussion._id;
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}/replies/${replyID}`)
       .then(() => dispatch(removeReply(commentID, replyID)))
       .catch(err => dispatch(addError(err.message)))

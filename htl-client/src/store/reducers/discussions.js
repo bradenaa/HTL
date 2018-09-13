@@ -2,18 +2,18 @@ import { LOAD_DISCUSSIONS, REMOVE_DISCUSSION, REMOVE_ALL, ADD_DISCUSSION, TOGGLE
 
 
 const discussions = (state = {
-  discussionsArr: [],
+  discussions: [],
   showDiscussionForm: false
 }, action) => {
   switch (action.type) {
     case LOAD_DISCUSSIONS:
-      return {...state, discussionsArr: action.discussions}
+      return {...state, discussions: action.discussions}
     case TOGGLE_DISCUSSION_FORM:
       return {...state, showDiscussionForm: !state.showDiscussionForm}
     case ADD_DISCUSSION:
-      return {...state, discussionsArr: [...state.discussionsArr, action.discussion]};
+      return {...state, discussions: [...state.discussions, action.discussion]};
     case REMOVE_DISCUSSION:
-      return {...state, discussionsArr: state.discussionsArr.filter(m => m._id !== action.discussionID)};
+      return {...state, discussions: state.discussions.filter(m => m._id !== action.discussionID)};
     case REMOVE_ALL:
       return []
     default:

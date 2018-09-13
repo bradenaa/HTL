@@ -40,5 +40,4 @@ class ReplyFormContainer extends Component {
   }
 }
 
-
 export default connect(null, { postNewReplyToComment })(ReplyFormContainer)

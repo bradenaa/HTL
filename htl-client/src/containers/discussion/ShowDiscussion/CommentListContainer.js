@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentList from '../../../components/discussion/ShowDiscussion/CommentList'
-import CreateCommentFormContainer from './CreateCommentFormContainer'
+import CommentFormContainer from './CommentFormContainer'
 import { toggleCommentForm, removeCommentAndDispatch } from '../../../store/actions/discussions'
 
 class CommentListContainer extends Component {
@@ -23,7 +23,7 @@ class CommentListContainer extends Component {
         <button id="loginButton" onClick={toggleCommentForm}>Leave a Comment</button>
 
         <div className="popup_container">
-          { showCommentForm ? <CreateCommentFormContainer /> : null }
+          { showCommentForm ? <CommentFormContainer /> : null }
         </div>
 
         <CommentList
@@ -40,9 +40,9 @@ class CommentListContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUserID: state.currentUser.userInfo.id,
-    discussionID: state.oneDiscussion._id,
-    showCommentForm: state.oneDiscussion.showCommentForm,
-    comments: state.oneDiscussion.comments
+    discussionID: state.showDiscussion._id,
+    showCommentForm: state.showDiscussion.showCommentForm,
+    comments: state.showDiscussion.comments
   }
 }
 

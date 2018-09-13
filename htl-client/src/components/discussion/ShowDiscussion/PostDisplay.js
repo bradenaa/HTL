@@ -18,7 +18,7 @@ PostDisplay.propTypes = {
   title: PropTypes.string,
   post: PropTypes.string,
   date: PropTypes.string,
-  userCreated: PropTypes.string
+  userCreated: PropTypes.string,
 }
 
 export default PostDisplay;

@@ -7,7 +7,7 @@ import FAQ from "../components/FAQ";
 import withAuth from '../hocs/withAuth';
 
 // New Discussion Structures
-import DiscussionContainer from '../containers/discussion/DiscussionContainer'
+import DiscussionsContainer from '../containers/discussion/DiscussionsContainer'
 import ShowDiscussionContainer from '../containers/discussion/ShowDiscussion/ShowDiscussionContainer'
 
 //Events
@@ -40,7 +40,7 @@ const Main = (props) => {
         />
         <Route
           exact path="/discussion"
-          component={withAuth(DiscussionContainer)}
+          component={withAuth(DiscussionsContainer)}
         />
         <Route
           path="/discussion/:discussionID"

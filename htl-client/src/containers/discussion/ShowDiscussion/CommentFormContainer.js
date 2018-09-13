@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { toggleCommentForm, postNewCommentToDiscussion } from '../../../store/actions/discussions'
-import CreateCommentForm from '../../../components/discussion/ShowDiscussion/CreateCommentForm'
+import CommentForm from '../../../components/discussion/ShowDiscussion/CommentForm'
 
-class CreateCommentFormContainer extends Component {
+class CommentFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { commentText: '' }
@@ -31,7 +31,7 @@ class CreateCommentFormContainer extends Component {
     const { toggleCommentForm } = this.props;
 
     return(
-        <CreateCommentForm
+        <CommentForm
           commentText={commentText}
           handleChange={this.handleChange}
           toggleCommentForm={toggleCommentForm}
@@ -43,7 +43,7 @@ class CreateCommentFormContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    discussionID: state.oneDiscussion._id
+    discussionID: state.showDiscussion._id
   }
 }
 
@@ -53,4 +53,4 @@ export default connect(
     toggleCommentForm,
     postNewCommentToDiscussion
   }
-)(CreateCommentFormContainer)
+)(CommentFormContainer)

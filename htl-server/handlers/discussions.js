@@ -2,7 +2,6 @@ const db = require("../models");
 
 //TODO: Clean up these responses to match only the needed data on the front-end. Write tests, if needed.
 
-
 // /api/user/:userID/discussions
 exports.createDiscussion = async function(req, res, next) {
   try {

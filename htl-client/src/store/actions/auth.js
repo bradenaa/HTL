@@ -5,23 +5,19 @@ import { addError, removeError } from './errors';
 // Here we will run a function that will accept a user object and return the action from current user action.
 // The current user action, checks to see if the user object passes contains any keys
 // The api call to the back end server would only return a non-empty object if everything is authenticated on the backend side, therefore someone could only login if authenticated on the back end side.
-export function setCurrentUser(user){
-  return {
+export const setCurrentUser = (user) => ({
     type: SET_CURRENT_USER,
     user
-  };
-};
+});
 
-export function setPromo(promo){
-  return {
+export const setPromo = (promo) => ({
     type: SET_PROMO,
     promo
-  };
-}
+});
 
 export function setAuthorizationToken(token) {
-  setTokenHeader(token);
-}
+  return setTokenHeader(token)
+};
 
 /**
 * Handles the initial request response from Facebook and Google
@@ -51,16 +47,11 @@ export function authUser(type, response){
         .then(user => {
           localStorage.setItem("jwtToken", user.token);
           setAuthorizationToken(user.token);
-          console.log("user: ", user);
           dispatch(setCurrentUser(user));
           dispatch(removeError());
           resolve(); // indicate that the API call succeeded
         })
         .catch(err => {
-          console.log(err);
-          // add the error by calling the addError action
-          // which is passed to the state and then to the props through
-          // mapStateToProps
           dispatch(addError(err));
           reject(); // indicate that the API call failed
         });
@@ -74,13 +65,11 @@ export function twitterAuth(response) {
       return response.json().then(user => {
         localStorage.setItem("jwtToken", user.token);
         setAuthorizationToken(user.token);
-        console.log("user: ", user);
         dispatch(setCurrentUser(user));
         dispatch(removeError());
         resolve();
       })
       .catch(err => {
-        console.log(err);
         dispatch(addError(err.message));
         reject();
       })
@@ -98,13 +87,11 @@ export const submitPromo = (promo, user_id) => {
   return dispatch => {
     return apiCall('put', `api/auth/users/${user_id}/promo/${promo}`)
       .then(res => {
-        console.log("promo response: ",res);
         localStorage.setItem("jwtToken", res.token)
         setAuthorizationToken(res.token);
         dispatch(setCurrentUser(res));
       })
       .catch(err => {
-        console.log(err);
         dispatch(addError(err.message));
       })
   }
