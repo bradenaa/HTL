@@ -9,7 +9,7 @@ a {
   font-weight: 600;
 }
 
-/* Navbar */
+/* NavbarContainer */
 
 nav {
   /*position: fixed;
@@ -27,7 +27,7 @@ nav #loginButton {
 }
 
 
-/* Auth Popup */
+/* AuthFormContainer Popup */
 
 h1 {
   margin: 0;

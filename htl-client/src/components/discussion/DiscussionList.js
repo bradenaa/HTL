@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import DiscussionItem from './DiscussionItem'
 
 const DiscussionList = (props) => {
-  const { discussions, removeDiscussion, currentUser } = props;
-  console.log("PROPS - ", props);
+  const { discussions, removeDiscussion, currentUserID, upVoteDiscussion } = props;
 
   let discussionList = discussions.map( d => {
     return (
@@ -14,9 +13,13 @@ const DiscussionList = (props) => {
         date={d.date}
         title={d.title}
         post={d.post}
+        upVotes={d.upVotes.length}
         userCreated={d.userCreated.displayName}
-        isCorrectUser={currentUser.id === d.userCreated._id}
+        numberComments={d.comments.length}
+        isCorrectUser={currentUserID === d.userCreated._id}
+        upVoteDiscussion={upVoteDiscussion.bind(this, currentUserID, d._id)}
         removeDiscussion={removeDiscussion.bind(this, d.userCreated._id, d._id)}
+        hasUserUpVoted={ d.upVotes.indexOf(currentUserID) !== -1 ? true : false }
       />
     )
   })
@@ -30,8 +33,9 @@ const DiscussionList = (props) => {
 
 DiscussionList.propTypes = {
   discussions: PropTypes.array,
-  currentUser: PropTypes.object,
+  currentUserID: PropTypes.string,
   removeDiscussion: PropTypes.func,
+  upVoteDiscussion: PropTypes.func,
 }
 
 export default DiscussionList;

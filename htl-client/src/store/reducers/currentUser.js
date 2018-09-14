@@ -1,21 +1,26 @@
-import { SET_CURRENT_USER } from '../actionTypes';
+import {
+  SET_CURRENT_USER,
+  TOGGLE_AUTH_POPUP,
+} from '../actionTypes';
 
 const DEFAULT_STATE = {
-  isAuthenticated: false, // hopefully true when logged in
-  hasPromo: false, // needs to be set as true upon a confirmed lookup in Database
+  isAuthenticated: false, // can only be true if there is a currentUser object that isn't empty
+  hasPromo: false, // only place this can be turn true is by backend
+  showAuthPopup: false,
   userInfo: {} // all the user information when logged in
 };
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
-      return {
-        // turn empty object into false or if there are keys, then true
-        // if there are keys true, else false
-        isAuthenticated: !!Object.keys(action.user).length,
+    return {
+        ...state,
+        isAuthenticated: !!Object.keys(action.user).length,  // if there are keys true, else false
         hasPromo: action.user.hasPromo,
         userInfo: action.user,
       };
+    case TOGGLE_AUTH_POPUP:
+      return {...state, showAuthPopup: !state.showAuthPopup}
     default:
       return state;
   }

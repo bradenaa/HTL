@@ -3,18 +3,22 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import Landing from "../components/Landing";
 import FAQ from "../components/FAQ";
-// import { removeError } from '../store/actions/errors';
 import withAuth from '../hocs/withAuth';
 
 // New Discussion Structures
 import DiscussionsContainer from '../containers/discussion/DiscussionsContainer'
 import ShowDiscussionContainer from '../containers/discussion/ShowDiscussion/ShowDiscussionContainer'
 
+// Profile
+import ProfileContainer from '../containers/profile/ProfileContainer'
+
 //Events
 import Events from '../components/Events';
 import EventForm from '../containers/EventForm';
 
 //TODO: Look into typescript for prop handling on the containers and components. Also for type strictness
+//TODO: Think about routing different NavBars and different apps depending on authorization
+//TODO: Implement a system to grab error message from state to display information to the user
 
 const Main = (props) => {
   const { currentUser } = props;
@@ -29,6 +33,10 @@ const Main = (props) => {
         <Route
           exact path="/FAQ"
           render={props => <FAQ currentUser={currentUser}/>}
+        />
+        <Route
+          exact path="/profile/:userID"
+          component={withAuth(ProfileContainer)}
         />
         <Route
           exact path="/events"
@@ -54,7 +62,6 @@ const Main = (props) => {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    // errors: state.errors
   };
 }
 

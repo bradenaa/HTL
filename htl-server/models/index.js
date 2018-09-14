@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 mongoose.set("debug", true);
 mongoose.Promise = Promise;
 
-mongoose.connect("mongodb://localhost/htl-postNewDiscussion", {
+mongoose.connect("mongodb://localhost/htl-discussion", {
   keepAlive: true,
 });
 

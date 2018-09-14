@@ -6,6 +6,7 @@ export const REMOVE_ERROR  = "REMOVE_ERROR"
 // Authentication Actions
 export const SET_CURRENT_USER  = "SET_CURRENT_USER"
 export const SET_PROMO  = "SET_PROMO"
+export const TOGGLE_AUTH_POPUP = "TOGGLE_AUTH_POPUP"
 
 // Event Actions
 export const LOAD_EVENTS = "LOAD_EVENTS"
@@ -16,6 +17,7 @@ export const LOAD_DISCUSSIONS = "LOAD_DISCUSSIONS"
 export const TOGGLE_DISCUSSION_FORM = "TOGGLE_DISCUSSION_FORM"
 export const ADD_DISCUSSION = "ADD_DISCUSSION"
 export const REMOVE_DISCUSSION = "REMOVE_DISCUSSION"
+export const ADD_UP_VOTE = "ADD_UP_VOTE"
 
 // showDiscussion Actions
 export const LOAD_ONE_DISCUSSION = "LOAD_ONE_DISCUSSION"

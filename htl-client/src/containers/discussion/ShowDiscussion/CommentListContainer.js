@@ -21,7 +21,7 @@ class CommentListContainer extends Component {
     return(
       <div>
         <button id="loginButton" onClick={toggleCommentForm}>Leave a Comment</button>
-
+        
         <div className="popup_container">
           { showCommentForm ? <CommentFormContainer /> : null }
         </div>

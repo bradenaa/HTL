@@ -10,7 +10,11 @@ const DiscussionItem = (props) => {
       post,
       userCreated,
       isCorrectUser,
-      postID
+      postID,
+      upVotes,
+      upVoteDiscussion,
+      hasUserUpVoted,
+      numberComments,
     } = props;
 
   return (
@@ -23,6 +27,15 @@ const DiscussionItem = (props) => {
         <h4>Date: {date}</h4>
 
         { isCorrectUser && (<button onClick={removeDiscussion}> DELETE </button>) }
+        <button onClick={upVoteDiscussion}> UpVote </button>
+
+        <h4>
+          UpVotes:
+          <span style={hasUserUpVoted ? {color: "red"} : {color: "black"}}>
+            { upVotes > 0 ? upVotes : 0 }
+          </span>
+        </h4>
+        <h4>Comments: {numberComments}</h4>
       </li>
     </div>
   )
@@ -34,7 +47,11 @@ DiscussionItem.propTypes = {
   isCorrectUser: PropTypes.bool,
   post: PropTypes.string,
   postID: PropTypes.string,
-  userCreated: PropTypes.string
+  userCreated: PropTypes.string,
+  upVotes: PropTypes.number,
+  upVoteDiscussion: PropTypes.func,
+  hasUserUpVoted: PropTypes.bool,
+  numberComments: PropTypes.number,
 }
 
 export default DiscussionItem;

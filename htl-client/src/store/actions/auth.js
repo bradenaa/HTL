@@ -1,6 +1,12 @@
 import { apiCall, setTokenHeader } from "../../services/api";
-import { SET_CURRENT_USER, SET_PROMO } from '../actionTypes';
 import { addError, removeError } from './errors';
+import {
+  SET_CURRENT_USER,
+  SET_PROMO,
+  TOGGLE_AUTH_POPUP,
+} from '../actionTypes';
+
+//TODO: read a little about blogs compared to other data structures
 
 // Here we will run a function that will accept a user object and return the action from current user action.
 // The current user action, checks to see if the user object passes contains any keys
@@ -14,6 +20,10 @@ export const setPromo = (promo) => ({
     type: SET_PROMO,
     promo
 });
+
+export const toggleAuthPopup = () => ({
+  type: TOGGLE_AUTH_POPUP
+})
 
 export function setAuthorizationToken(token) {
   return setTokenHeader(token)
@@ -41,7 +51,6 @@ export function authUser(type, response){
         mode: 'cors',
         cache: 'default'
       };
-      console.log(tokenBlob);
       fetch(`http://localhost:8081/api/auth/${type}`, options)
         .then(user => user.json())
         .then(user => {

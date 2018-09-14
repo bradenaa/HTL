@@ -10,6 +10,7 @@ import {
   TOGGLE_COMMENT_FORM,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  ADD_UP_VOTE,
 
   TOGGLE_REPLY_FORM,
   TOGGLE_REPLY_LIST,
@@ -35,13 +36,19 @@ export const toggleDiscussionForm = () => ({
 
 export const addDiscussionToState = discussion => ({
   type: ADD_DISCUSSION,
-  discussion
+  discussion,
 })
 
 export const removeDiscussionFromState = discussionID => ({
   type: REMOVE_DISCUSSION,
-  discussionID
+  discussionID,
 });
+
+export const addUpVote = (userID, discussionID) => ({
+  type: ADD_UP_VOTE,
+  userID,
+  discussionID,
+})
 
 // SHOW MORE DISCUSSION
 
@@ -96,40 +103,8 @@ export const removeAll = () => ({
 });
 
 // ++++++++++++++++++++++++++++++++++++++++
-// ============ Discussion ================
+// ============ Discussions ================
 // ++++++++++++++++++++++++++++++++++++++++
-
-/**
-* Thunk makes API call to delete specified discussion from server side
-* On the completion of the API call, the dispatch action is initialized
-* and the dispatch action then deletes from the client side
-* @param {string} userID currentUser ID obtained from the store
-* @param {string} discussionID the id of the DiscussionItem component
-**/
-export const removeDiscussion = (userID, discussionID) => {
-  console.log("userID", userID);
-  console.log("discussionID", discussionID);
-
-  return dispatch => {
-    return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
-      .then(() => dispatch(removeDiscussionFromState(discussionID)))
-      .catch(err => dispatch(addError(err.message)))
-  };
-};
-
-/**
-* A thunk that returns API call to retrieve a specic discussion from database.
-* The responding data from API call is then dispatched to be handled in the reducer
-* @param {string} userID currentUser ID obtained from the store
-* @param {string} discussionID the id of the DiscussionItem component
-**/
-export const fetchOneDiscussion = (userID, discussionID) => {
-  return dispatch => {
-    return apiCall('get', `/api/user/${userID}/discussions/${discussionID}`)
-      .then(res => dispatch(loadOneDiscussion(res)))
-      .catch(err => dispatch(addError(err.message)))
-  };
-};
 
 // Thunk that returns an API call, which retrieves all discussions from backend
 // and then dispatches the responding data to the discussions.js reducer
@@ -156,6 +131,47 @@ export const postNewDiscussion = ( data )  => (dispatch, getState) => {
     .catch(err => dispatch(addError(err.message)))
 }
 
+/**
+* Thunk makes API call to delete specified discussion from server side
+* On the completion of the API call, the dispatch action is initialized
+* and the dispatch action then deletes from the client side
+* @param {string} userID currentUser ID obtained from the store
+* @param {string} discussionID the id of the DiscussionItem component
+**/
+export const removeDiscussion = (userID, discussionID) => {
+  return dispatch => {
+    return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}`)
+      .then(() => dispatch(removeDiscussionFromState(discussionID)))
+      .catch(err => dispatch(addError(err.message)))
+  };
+};
+
+/**
+* @param {string} userID currentUser ID obtained from the store
+* @param {string} discussionID the id of the DiscussionItem component
+**/
+export const upVoteDiscussion = (userID, discussionID) => (dispatch, getState) => {
+  console.log("userID", userID);
+  console.log("discussionID", discussionID);
+  return apiCall('put', `/api/user/${userID}/discussions/${discussionID}`)
+    .then(res => dispatch(addUpVote(userID, discussionID)))
+    .catch(err => dispatch(addError(err.message)))
+};
+
+/**
+* A thunk that returns API call to retrieve a specic discussion from database.
+* The responding data from API call is then dispatched to be handled in the reducer
+* @param {string} userID currentUser ID obtained from the store
+* @param {string} discussionID the id of the DiscussionItem component
+**/
+export const fetchOneDiscussion = (userID, discussionID) => {
+  return dispatch => {
+    return apiCall('get', `/api/user/${userID}/discussions/${discussionID}`)
+      .then(res => dispatch(loadOneDiscussion(res)))
+      .catch(err => dispatch(addError(err.message)))
+  };
+};
+
 // ++++++++++++++++++++++++++++++++++++++++
 // ============ COMMENTS ==================
 // ++++++++++++++++++++++++++++++++++++++++
@@ -170,7 +186,6 @@ export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, g
   let { currentUser } = getState();
   const userID = currentUser.userInfo.id;
   dispatch(toggleCommentForm());
-
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}`, data)
     .then(res => dispatch(addComment(res)))
     .catch(err => dispatch(addError(err.message)))
@@ -210,9 +225,7 @@ export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState)
   dispatch(toggleReplyForm(commentID))
   dispatch(showReplyList(commentID))
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}`, data)
-    .then(res => {
-      dispatch(addReply(res.commentID, res.reply));
-    })
+    .then(res => dispatch(addReply(res.commentID, res.reply)))
     .catch(err => dispatch(addError(err.message)))
 }
 
