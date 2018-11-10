@@ -55,6 +55,7 @@ export function authUser(type, response){
         .then(user => user.json())
         .then(user => {
           localStorage.setItem("jwtToken", user.token);
+          console.log(user);
           setAuthorizationToken(user.token);
           dispatch(setCurrentUser(user));
           dispatch(removeError());
@@ -90,11 +91,11 @@ export function twitterAuth(response) {
 * makes a request to the backend to check on promo submitted
 * response is only 200 if Promo is confirmed
 * @param {string} promo string submitted by the user
-* @param {string} user_id ID of the currentUser
+* @param {string} userID ID of the currentUser
 **/
-export const submitPromo = (promo, user_id) => {
+export const submitPromo = (promo, userID) => {
   return dispatch => {
-    return apiCall('put', `api/auth/users/${user_id}/promo/${promo}`)
+    return apiCall('put', `api/auth/users/${userID}/promo/${promo}`)
       .then(res => {
         localStorage.setItem("jwtToken", res.token)
         setAuthorizationToken(res.token);

@@ -5,7 +5,7 @@ const event = (state=[], action) => {
     case LOAD_EVENTS:
       return [...action.events];
     case REMOVE_EVENT:
-      return state.filter(m => m._id !== action.id)
+      return state.filter(m => m._id !== action._id)
     default:
       return state;
   }

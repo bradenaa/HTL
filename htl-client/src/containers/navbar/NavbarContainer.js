@@ -47,7 +47,7 @@ class NavbarContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserID: state.currentUser.userInfo.id,
+    currentUserID: state.currentUser.userInfo._id,
     isAuthenticated: state.currentUser.isAuthenticated,
     showAuthPopup: state.currentUser.showAuthPopup,
     hasPromo: state.currentUser.hasPromo,

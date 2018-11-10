@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { removeDiscussion, fetchDiscussions, upVoteDiscussion } from '../../store/actions/discussions';
 import DiscussionList from '../../components/discussion/DiscussionList'
 
+// TODO: implement pagination or a continuous scroll loading for new discussions.
+// TODO: implement a search filter
+
 class DiscussionsListContainer extends Component {
 
   static propTypes = {
@@ -34,7 +37,7 @@ class DiscussionsListContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     discussions: state.discussions.discussions,
-    currentUserID: state.currentUser.userInfo.id,
+    currentUserID: state.currentUser.userInfo._id,
   }
 }
 

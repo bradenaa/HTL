@@ -125,7 +125,7 @@ export const fetchDiscussions = () => {
 export const postNewDiscussion = ( data )  => (dispatch, getState) => {
   let { currentUser } = getState();
   dispatch(toggleDiscussionForm());
-  const userID = currentUser.userInfo.id;
+  const userID = currentUser.userInfo._id;
   return apiCall('post', `/api/user/${userID}/discussions`, data)
     .then(res => dispatch(addDiscussionToState(res)))
     .catch(err => dispatch(addError(err.message)))
@@ -151,8 +151,6 @@ export const removeDiscussion = (userID, discussionID) => {
 * @param {string} discussionID the id of the DiscussionItem component
 **/
 export const upVoteDiscussion = (userID, discussionID) => (dispatch, getState) => {
-  console.log("userID", userID);
-  console.log("discussionID", discussionID);
   return apiCall('put', `/api/user/${userID}/discussions/${discussionID}`)
     .then(res => dispatch(addUpVote(userID, discussionID)))
     .catch(err => dispatch(addError(err.message)))
@@ -184,7 +182,7 @@ export const fetchOneDiscussion = (userID, discussionID) => {
 **/
 export const postNewCommentToDiscussion = ( discussionID, data ) => (dispatch, getState) => {
   let { currentUser } = getState();
-  const userID = currentUser.userInfo.id;
+  const userID = currentUser.userInfo._id;
   dispatch(toggleCommentForm());
   return apiCall('post', `/api/user/${userID}/discussions/${discussionID}`, data)
     .then(res => dispatch(addComment(res)))
@@ -220,7 +218,7 @@ export const removeCommentAndDispatch = (userID, discussionID, commentID) => {
 **/
 export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState) => {
   let { currentUser, showDiscussion } = getState();
-  const userID = currentUser.userInfo.id;
+  const userID = currentUser.userInfo._id;
   const discussionID = showDiscussion._id;
   dispatch(toggleReplyForm(commentID))
   dispatch(showReplyList(commentID))
@@ -238,7 +236,7 @@ export const postNewReplyToComment = ( commentID, data ) => (dispatch, getState)
 **/
 export const removeReplyAndDispatch = (commentID, replyID) => (dispatch, getState) => {
   let { currentUser, showDiscussion } = getState();
-  const userID = currentUser.userInfo.id;
+  const userID = currentUser.userInfo._id;
   const discussionID = showDiscussion._id;
     return apiCall('delete', `/api/user/${userID}/discussions/${discussionID}/comments/${commentID}/replies/${replyID}`)
       .then(() => dispatch(removeReply(commentID, replyID)))

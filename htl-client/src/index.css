@@ -78,3 +78,107 @@ html, body, .app {
   margin-left: 80px;
   border: 2px solid #102870;
 }
+
+/* ------------------------------- */
+/* ----------- Profile ----------- */
+/* ------------------------------- */
+
+.profile_background {
+  position: absolute;
+  width: 100vw;
+  height: 200px;
+  background-color: #1f98f0;
+}
+
+.profile_container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+
+}
+
+/* Sidebar Container */
+
+.profile_sidebar_container {
+  border: 2px solid #2f5c32;
+  flex: 10;
+}
+
+.profile_sidebar_top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile_sidebar_container img {
+  width: 200px;
+}
+
+.profile_social_links_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.profile_interests_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile_connections_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Main Container */
+
+.profile_main_container {
+  border: 2px solid #102870;
+  flex: 20;
+}
+
+.profile_main_languages_container {
+  border: 2px solid #9cf13b;
+}
+
+.profile_main_heading_container {
+  border: 2px solid #82004e;
+}
+
+.profile_main_stats_container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  border: 2px solid #fae034;
+}
+
+.profile_main_exchanges_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #fb4b4b;
+}
+
+.profile_main_reviews_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #00f7d2;
+}
+.profile_main_posts_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #e76500;
+}
+
+.profile_main_upvotes_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #0019c2;
+}

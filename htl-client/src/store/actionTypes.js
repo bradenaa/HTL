@@ -33,3 +33,6 @@ export const LOAD_ONE_DISCUSSION = "LOAD_ONE_DISCUSSION"
     export const ADD_REPLY = "ADD_REPLY"
 
 export const REMOVE_ALL = "REMOVE_ALL"
+
+// profile Actions
+export const LOAD_PROFILE = "LOAD_PROFILE"

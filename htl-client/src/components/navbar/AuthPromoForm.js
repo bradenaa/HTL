@@ -8,7 +8,6 @@ const AuthPromoForm = (props) => {
     currentUserID,
     hasPromo,
     promoCode,
-    token,
     logout,
     toggleAuthPopup,
     handlePromoSubmit,
@@ -24,7 +23,6 @@ const AuthPromoForm = (props) => {
         <div> EMAIL: {email} </div>
         <div> ID: {currentUserID} </div>
         <div> HasPromo: {hasPromo.toString()} </div>
-        <div> Token: {token} </div>
 
         <div>
           <button onClick={logout} className="button"> Log out </button>
@@ -59,7 +57,6 @@ AuthPromoForm.propTypes = {
   name: PropTypes.string,
   promoCode: PropTypes.string,
   toggleAuthPopup: PropTypes.func,
-  token: PropTypes.string,
 }
 
 export default AuthPromoForm

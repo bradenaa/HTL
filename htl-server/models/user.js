@@ -52,7 +52,14 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Discussion"
     }
-  ]
+  ],
+  connections: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
+
 })
 
 userSchema.set('toJSON', {getters: true, virtuals: true});
@@ -60,6 +67,10 @@ userSchema.set('toJSON', {getters: true, virtuals: true});
 userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb) {
   var that = this;
   // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
+  console.log("++++++++ TWITTER PROFILE ++++++++++");
+  console.log(profile);
+  console.log("++++++++++++++++++++++++++++++++++");
+  console.log(profile._json.entities);
     return this.findOne({
       $or: [
         { 'twitterProvider.id': profile.id },
@@ -94,6 +105,9 @@ userSchema.statics.upsertTwitterUser = function(token, tokenSecret, profile, cb)
 userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profile, cb) {
   var that = this;
   // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
+  console.log("++++++++ GOOGLE PROFILE ++++++++++");
+  console.log(profile);
+  console.log("++++++++++++++++++++++++++++++++++")
     return this.findOne({
       $or: [
         { 'googleProvider.id': profile.id },
@@ -111,7 +125,6 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
                 },
                 hasPromo: false
             });
-
             newUser.save(function(error, savedUser) {
                 if (error) {
                     console.log(error);
@@ -128,6 +141,9 @@ userSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
 userSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
   var that = this;
   // returns the found user if found by profileID or by email (in case of multiple social accounts with the same email)
+  console.log("++++++++ FACEBOOK PROFILE ++++++++++");
+  console.log(profile);
+  console.log("++++++++++++++++++++++++++++++++++")
     return this.findOne({
       $or: [
         { 'facebookProvider.id': profile.id },

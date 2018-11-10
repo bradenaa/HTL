@@ -24,7 +24,7 @@ const Main = (props) => {
   const { currentUser } = props;
 
   return (
-    <div className="container">
+    <div className="main_app_container">
       <Switch>
         <Route
           exact path="/"

@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.loginRequired = function(req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Bearer jdfsdfisd
-    // console.log(token);
     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
-      // console.log(decoded);
       if (decoded) {
         return next();
       } else {
@@ -26,12 +24,13 @@ exports.loginRequired = function(req, res, next) {
   }
  };
 
- // make sure we get the correct user - authorization
+ // Checks if the userID in the decoded JWT in the header from the client,
+ // which was initially issued by the back end, matches that of the userID passed in the http request
 exports.ensureCorrectUser = function(req, res, next) {
   try {
     const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, process.env.JWT_SECRET, function(err, decoded){
-      if (decoded && decoded.id === req.params.userID) {
+      if (decoded && decoded._id === req.params.userID) {
         return next();
       } else {
         return next({

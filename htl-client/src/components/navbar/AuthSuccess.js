@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const AuthSuccess = (props) => {
-  const { name, email, currentUserID, hasPromo, token, logout, toggleAuthPopup} = props;
+  const { name, email, currentUserID, hasPromo, logout, toggleAuthPopup} = props;
 
   return(
     <div className='popup'>
@@ -13,7 +13,6 @@ const AuthSuccess = (props) => {
         <div> EMAIL: {email} </div>
         <div> ID: {currentUserID} </div>
         <div> HasPromo: {hasPromo.toString()} </div>
-        <div> Token: {token} </div>
 
         <div>
           <button onClick={logout} className="button"> Log out </button>
@@ -31,7 +30,6 @@ AuthSuccess.propTypes = {
   logout: PropTypes.func,
   name: PropTypes.string,
   toggleAuthPopup: PropTypes.func,
-  token: PropTypes.string,
 }
 
 export default AuthSuccess

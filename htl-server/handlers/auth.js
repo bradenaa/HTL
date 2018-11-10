@@ -66,11 +66,11 @@ exports.login = function(req, res, next) {
         });
     }
     // Create JWT token
-    let { displayName, email, id, hasPromo } = req.user;
+    let { displayName, email, _id, hasPromo } = req.user;
     let token = jwt.sign({
       displayName,
       email,
-      id,
+      _id,
       hasPromo
     }, process.env.JWT_SECRET,
     {
@@ -80,7 +80,7 @@ exports.login = function(req, res, next) {
     return res.status(200).json({
       displayName,
       email,
-      id,
+      _id,
       hasPromo,
       token
     })
@@ -97,11 +97,11 @@ exports.promoHandler = async function(req, res, next){
 
       // Create new token and send to frontend
       let { displayName, email, hasPromo } = foundUser;
-      let id = foundUser._id;
+      let _id = foundUser._id;
       let token = jwt.sign({
         displayName,
         email,
-        id,
+        _id,
         hasPromo
       }, process.env.JWT_SECRET,
       {
@@ -110,7 +110,7 @@ exports.promoHandler = async function(req, res, next){
       return res.status(200).json({
         displayName,
         email,
-        id,
+        _id,
         hasPromo,
         token
       })

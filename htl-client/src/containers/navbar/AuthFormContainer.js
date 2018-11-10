@@ -29,9 +29,7 @@ class AuthFormContainer extends Component {
     }
 
     twitterResponse = (response) => { this.props.twitterAuth(response) };
-
     facebookResponse = (response) => { this.props.authUser('facebook', response) };
-
     googleResponse = (response) => { this.props.authUser('google', response) };
 
     handleChange = e => {
@@ -118,7 +116,7 @@ const mapStateToProps = (state) => {
     hasPromo: state.currentUser.hasPromo,
     name: state.currentUser.userInfo.displayName,
     email: state.currentUser.userInfo.email,
-    currentUserID: state.currentUser.userInfo.id,
+    currentUserID: state.currentUser.userInfo._id,
     token: state.currentUser.userInfo.token,
   }
 }

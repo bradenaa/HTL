@@ -14,6 +14,11 @@ exports.createDiscussion = async function(req, res, next) {
       userCreated: userID,
     });
 
+    // add id of created discussion to the user's profile for later reference
+    let foundUser = await db.User.findById(userID);
+    foundUser.discussions.push(discussion._id);
+    await foundUser.save();
+
     let foundDiscussion = await db.Discussion.findById(discussion._id)
       .populate({
         path:"userCreated",

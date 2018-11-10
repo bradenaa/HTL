@@ -37,7 +37,7 @@ class EventList extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser.userInfo.id,
+    currentUser: state.currentUser.userInfo._id,
     events: state.events
   };
 }

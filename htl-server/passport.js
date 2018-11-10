@@ -18,7 +18,7 @@ module.exports = function () {
               let newUser = {};
               newUser.displayName = profile.displayName;
               newUser.email = user.email;
-              newUser.id = user._id;
+              newUser._id = user._id;
               newUser.hasPromo = user.hasPromo;
 
               return done(err, newUser);
@@ -34,7 +34,7 @@ module.exports = function () {
               let newUser = {};
               newUser.displayName = profile.displayName;
               newUser.email = user.email;
-              newUser.id = user._id;
+              newUser._id = user._id;
               newUser.hasPromo = user.hasPromo;
 
               return done(err, newUser);
@@ -50,7 +50,7 @@ module.exports = function () {
               let newUser = {};
               newUser.displayName = profile.displayName;
               newUser.email = user.email;
-              newUser.id = user._id;
+              newUser._id = user._id;
               newUser.hasPromo = user.hasPromo;
 
               return done(err, newUser);

@@ -50,7 +50,7 @@ class ReplyListContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     replies: state.showDiscussion.comments.find(c => c._id === ownProps.commentID).replies,
-    currentUserID: state.currentUser.userInfo.id,
+    currentUserID: state.currentUser.userInfo._id,
   }
 }
 

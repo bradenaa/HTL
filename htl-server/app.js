@@ -16,6 +16,7 @@ const db = require("./models");
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events');
 const discussionRoutes = require('./routes/discussions');
+const profileRoutes = require('./routes/profile');
 
 // ======================================
 // ============== Handlers ==============
@@ -65,15 +66,22 @@ app.use(
   "/api/user/:userID/events",
   loginRequired,
   ensureCorrectUser,
-  eventRoutes
+  eventRoutes,
 );
 
 app.use(
   "/api/user/:userID/discussions",
   loginRequired,
   ensureCorrectUser,
-  discussionRoutes
+  discussionRoutes,
 );
+
+app.use(
+  "/api/user/:userID/profile",
+  loginRequired,
+  ensureCorrectUser,
+  profileRoutes,
+)
 
 app.get("/api/events", loginRequired, async function(req, res, next){
   try {
@@ -115,16 +123,5 @@ app.use(function(req, res, next) {
 });
 
 app.use(errorHandler);
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;

@@ -39,7 +39,7 @@ class CommentListContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserID: state.currentUser.userInfo.id,
+    currentUserID: state.currentUser.userInfo._id,
     discussionID: state.showDiscussion._id,
     showCommentForm: state.showDiscussion.showCommentForm,
     comments: state.showDiscussion.comments

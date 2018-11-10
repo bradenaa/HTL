@@ -4,6 +4,7 @@ import DiscussionItem from './DiscussionItem'
 
 const DiscussionList = (props) => {
   const { discussions, removeDiscussion, currentUserID, upVoteDiscussion } = props;
+  console.log(props);
 
   let discussionList = discussions.map( d => {
     return (

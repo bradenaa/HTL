@@ -38,7 +38,7 @@ const eventSchema = new mongoose.Schema(
 //     // find a username
 //     let user = await User.findById(this.user);
 //     // remove the id of the message from their messages list
-//     user.events.remove(this.id);
+//     user.events.remove(this._id);
 //     // save that user
 //     await user.save();
 //     // return next

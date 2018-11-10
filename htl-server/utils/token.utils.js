@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var createToken = function(auth) {
   console.log("ct: ", auth);
     return jwt.sign({
-            id: auth.id
+            id: auth._id
         }, process.env.JWT_SECRET,
         {
             expiresIn: 60 * 120

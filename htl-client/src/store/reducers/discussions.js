@@ -7,11 +7,13 @@ import {
   ADD_UP_VOTE,
 } from '../actionTypes';
 
-
-const discussions = (state = {
+const DEFAULT_STATE = {
   discussions: [],
-  showDiscussionForm: false
-}, action) => {
+  showDiscussionForm: false,
+}
+
+
+const discussions = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case LOAD_DISCUSSIONS:
       return {...state, discussions: action.discussions}

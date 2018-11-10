@@ -7,12 +7,12 @@ exports.createEvent = async function(req, res, next) {
       title: req.body.title,
       neighborhood: req.body.neighborhood,
       date: req.body.date,
-      userCreated: req.params.id
+      userCreated: req.params._id
     });
 
     // Find the user by ID and push this event in profile event array
-    let foundUser = await db.User.findById(req.params.id);
-    foundUser.events.push(event.id);
+    let foundUser = await db.User.findById(req.params._id);
+    foundUser.events.push(event._id);
     await foundUser.save();
 
     // find the created event and populate the response for the front end
@@ -20,7 +20,7 @@ exports.createEvent = async function(req, res, next) {
       email: true,
     });
     // Push user created into the attending array and save
-    foundEvent.usersAttending.push(req.params.id);
+    foundEvent.usersAttending.push(req.params._id);
     await foundEvent.save(function (err, next){
       if (err) next(err);
     })
@@ -58,11 +58,11 @@ exports.joinEvent = async function(req, res, next) {
 
     // Changed the 'object' array item to a string and check if user ID is there
     let attendingArr = await foundEvent.usersAttending.map(e => e.toString());
-    let alreadyAttending = await attendingArr.includes(req.params.id);
+    let alreadyAttending = await attendingArr.includes(req.params._id);
 
     // If user is not already attending the push ID into attending array and save
     if (!alreadyAttending) {
-      foundEvent.usersAttending.push(req.params.id);
+      foundEvent.usersAttending.push(req.params._id);
       await foundEvent.save()
       return res.status(200).json(foundEvent);
     } else {
